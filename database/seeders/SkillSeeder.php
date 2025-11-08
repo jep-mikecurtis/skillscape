@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Skill;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class SkillSeeder extends Seeder
@@ -249,6 +248,114 @@ class SkillSeeder extends Seeder
                     ['type' => 'youtube', 'title' => 'Epic Gardening', 'url' => 'https://www.youtube.com/@epicgardening'],
                     ['type' => 'youtube', 'title' => 'MIgardener', 'url' => 'https://www.youtube.com/@MIgardener'],
                     ['type' => 'website', 'title' => 'r/gardening', 'url' => 'https://www.reddit.com/r/gardening'],
+                ],
+            ],
+
+            // Additional Physical Skills
+            [
+                'name' => 'Gymnastics',
+                'description' => 'Gymnastics and bodyweight skills',
+                'icon' => '🤸',
+                'category' => 'Physical',
+                'xp_rate' => 14,
+                'resources' => [
+                    ['type' => 'youtube', 'title' => 'GMB Fitness', 'url' => 'https://www.youtube.com/@GMBFitnessSkills'],
+                    ['type' => 'youtube', 'title' => 'FitnessFAQs', 'url' => 'https://www.youtube.com/@FitnessFAQs'],
+                    ['type' => 'website', 'title' => 'Gold Medal Bodies', 'url' => 'https://gmb.io'],
+                    ['type' => 'youtube', 'title' => 'Antranik', 'url' => 'https://www.youtube.com/@AntranikDotOrg'],
+                ],
+            ],
+
+            // Additional Knowledge Skills
+            [
+                'name' => 'History',
+                'description' => 'Learning about history and civilizations',
+                'icon' => '📜',
+                'category' => 'Knowledge',
+                'xp_rate' => 8,
+                'resources' => [
+                    ['type' => 'youtube', 'title' => 'History Matters', 'url' => 'https://www.youtube.com/@HistoryMatters'],
+                    ['type' => 'youtube', 'title' => 'Crash Course History', 'url' => 'https://www.youtube.com/@crashcourse'],
+                    ['type' => 'website', 'title' => 'Khan Academy History', 'url' => 'https://www.khanacademy.org/humanities/world-history'],
+                    ['type' => 'youtube', 'title' => 'HistoryExtra', 'url' => 'https://www.youtube.com/@HistoryExtra'],
+                ],
+            ],
+            [
+                'name' => 'Science',
+                'description' => 'Learning about physics, chemistry, and biology',
+                'icon' => '🔬',
+                'category' => 'Knowledge',
+                'xp_rate' => 9,
+                'resources' => [
+                    ['type' => 'youtube', 'title' => 'Kurzgesagt', 'url' => 'https://www.youtube.com/@kurzgesagt'],
+                    ['type' => 'youtube', 'title' => 'Veritasium', 'url' => 'https://www.youtube.com/@veritasium'],
+                    ['type' => 'website', 'title' => 'Khan Academy Science', 'url' => 'https://www.khanacademy.org/science'],
+                    ['type' => 'youtube', 'title' => 'SciShow', 'url' => 'https://www.youtube.com/@SciShow'],
+                ],
+            ],
+            [
+                'name' => 'Mathematics',
+                'description' => 'Learning mathematics and problem-solving',
+                'icon' => '🔢',
+                'category' => 'Knowledge',
+                'xp_rate' => 10,
+                'resources' => [
+                    ['type' => 'youtube', 'title' => '3Blue1Brown', 'url' => 'https://www.youtube.com/@3blue1brown'],
+                    ['type' => 'website', 'title' => 'Khan Academy Math', 'url' => 'https://www.khanacademy.org/math'],
+                    ['type' => 'website', 'title' => 'Brilliant.org', 'url' => 'https://brilliant.org'],
+                    ['type' => 'youtube', 'title' => 'Numberphile', 'url' => 'https://www.youtube.com/@numberphile'],
+                ],
+            ],
+            [
+                'name' => 'Philosophy',
+                'description' => 'Exploring philosophical ideas and critical thinking',
+                'icon' => '💭',
+                'category' => 'Knowledge',
+                'xp_rate' => 8,
+                'resources' => [
+                    ['type' => 'youtube', 'title' => 'Wireless Philosophy', 'url' => 'https://www.youtube.com/@WirelessPhilosophy'],
+                    ['type' => 'youtube', 'title' => 'Academy of Ideas', 'url' => 'https://www.youtube.com/@academyofideas'],
+                    ['type' => 'website', 'title' => 'Stanford Encyclopedia of Philosophy', 'url' => 'https://plato.stanford.edu'],
+                    ['type' => 'website', 'title' => 'Philosophy Basics', 'url' => 'https://www.philosophybasics.com'],
+                ],
+            ],
+            [
+                'name' => 'Psychology',
+                'description' => 'Understanding human behavior and mental processes',
+                'icon' => '🧠',
+                'category' => 'Knowledge',
+                'xp_rate' => 9,
+                'resources' => [
+                    ['type' => 'youtube', 'title' => 'Crash Course Psychology', 'url' => 'https://www.youtube.com/playlist?list=PL8dPuuaLjXtOPRKzVLY0jJY-uHOH9KVU6'],
+                    ['type' => 'youtube', 'title' => 'Psych2Go', 'url' => 'https://www.youtube.com/@Psych2go'],
+                    ['type' => 'website', 'title' => 'Khan Academy Psychology', 'url' => 'https://www.khanacademy.org/test-prep/mcat/behavior/psych-stats'],
+                    ['type' => 'website', 'title' => 'Psychology Today', 'url' => 'https://www.psychologytoday.com'],
+                ],
+            ],
+            [
+                'name' => 'Economics',
+                'description' => 'Understanding economics and financial systems',
+                'icon' => '💰',
+                'category' => 'Knowledge',
+                'xp_rate' => 9,
+                'resources' => [
+                    ['type' => 'youtube', 'title' => 'Economics Explained', 'url' => 'https://www.youtube.com/@EconomicsExplained'],
+                    ['type' => 'youtube', 'title' => 'Crash Course Economics', 'url' => 'https://www.youtube.com/playlist?list=PL8dPuuaLjXtPNZwz5_o_5uirJ8gQXnhEO'],
+                    ['type' => 'website', 'title' => 'Khan Academy Economics', 'url' => 'https://www.khanacademy.org/economics-finance-domain'],
+                    ['type' => 'website', 'title' => 'Investopedia', 'url' => 'https://www.investopedia.com'],
+                ],
+            ],
+            [
+                'name' => 'Astronomy',
+                'description' => 'Exploring space, stars, and the universe',
+                'icon' => '🔭',
+                'category' => 'Knowledge',
+                'xp_rate' => 8,
+                'resources' => [
+                    ['type' => 'youtube', 'title' => 'PBS Space Time', 'url' => 'https://www.youtube.com/@pbsspacetime'],
+                    ['type' => 'youtube', 'title' => 'Astrum', 'url' => 'https://www.youtube.com/@astrumspace'],
+                    ['type' => 'website', 'title' => 'NASA', 'url' => 'https://www.nasa.gov'],
+                    ['type' => 'app', 'title' => 'SkySafari Star Chart', 'url' => 'https://skysafariastronomy.com'],
                 ],
             ],
         ];

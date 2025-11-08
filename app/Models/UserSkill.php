@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class UserSkill extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'user_id',
         'skill_id',
@@ -58,7 +61,7 @@ class UserSkill extends Model
     public static function levelFromExperience(int $experience): int
     {
         $level = 1;
-        
+
         for ($i = 2; $i <= 120; $i++) {
             if ($experience >= self::experienceForLevel($i)) {
                 $level = $i;
@@ -80,6 +83,7 @@ class UserSkill extends Model
         }
 
         $nextLevelXp = self::experienceForLevel($this->level + 1);
+
         return $nextLevelXp - $this->experience;
     }
 

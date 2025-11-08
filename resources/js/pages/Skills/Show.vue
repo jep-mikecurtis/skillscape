@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
+import LevelUpNotification from '@/components/LevelUpNotification.vue';
+import ManualTimeEntryModal from '@/components/ManualTimeEntryModal.vue';
 import { dashboard } from '@/routes';
 import type { BreadcrumbItem } from '@/types';
 import { Head, router } from '@inertiajs/vue3';
@@ -66,6 +68,9 @@ const elapsedTime = ref(0);
 const sessionNotes = ref('');
 const isStarting = ref(false);
 const isStopping = ref(false);
+const showLevelUp = ref(false);
+const showManualEntry = ref(false);
+const levelUpData = ref<any>(null);
 let timerInterval: ReturnType<typeof setInterval> | null = null;
 
 const formattedTime = computed(() => {
@@ -147,6 +152,12 @@ const stopTracking = async () => {
             isTracking.value = false;
             stopTimer();
 
+            // Check if user leveled up
+            if (data.level_up) {
+                levelUpData.value = data.level_up;
+                showLevelUp.value = true;
+            }
+
             // Reload the page to show updated stats
             router.reload({ only: ['userSkill', 'recentSessions', 'activeSession'] });
         } else {
@@ -186,6 +197,17 @@ onMounted(() => {
     }
 });
 
+const handleManualEntrySuccess = (data: any) => {
+    // Check if user leveled up
+    if (data.level_up) {
+        levelUpData.value = data.level_up;
+        showLevelUp.value = true;
+    }
+
+    // Reload the page to show updated stats
+    router.reload({ only: ['userSkill', 'recentSessions', 'activeSession'] });
+};
+
 onUnmounted(() => {
     stopTimer();
 });
@@ -193,6 +215,17 @@ onUnmounted(() => {
 
 <template>
     <Head :title="skill.name" />
+
+    <LevelUpNotification
+        v-model:isOpen="showLevelUp"
+        :level-up-data="levelUpData"
+    />
+
+    <ManualTimeEntryModal
+        v-model:isOpen="showManualEntry"
+        :skill="skill"
+        @success="handleManualEntrySuccess"
+    />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-6 p-4">
@@ -268,6 +301,22 @@ onUnmounted(() => {
                                     class="w-full rounded-lg bg-green-600 px-6 py-4 text-lg font-semibold text-white transition-colors hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
                                     {{ isStarting ? 'Starting...' : 'Start Training' }}
+                                </button>
+
+                                <div class="relative">
+                                    <div class="absolute inset-0 flex items-center">
+                                        <div class="w-full border-t border-border"></div>
+                                    </div>
+                                    <div class="relative flex justify-center text-xs uppercase">
+                                        <span class="bg-card px-2 text-muted-foreground">Or</span>
+                                    </div>
+                                </div>
+
+                                <button
+                                    @click="showManualEntry = true"
+                                    class="w-full rounded-lg border-2 border-primary/20 bg-transparent px-6 py-3 text-base font-semibold text-primary transition-colors hover:bg-primary/10 hover:border-primary/40"
+                                >
+                                    Log Time Manually
                                 </button>
                             </div>
 
