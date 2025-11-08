@@ -23,15 +23,17 @@
         {{-- Inline style to set the HTML background color based on our theme in app.css --}}
         <style>
             html {
-                background-color: oklch(1 0 0);
+                /* RuneScape Light Theme - Parchment */
+                background-color: hsl(43, 35%, 90%);
             }
 
             html.dark {
-                background-color: oklch(0.145 0 0);
+                /* RuneScape Dark Theme - Dungeon */
+                background-color: hsl(220, 25%, 8%);
             }
         </style>
 
-        <title inertia>{{ config('app.name', 'Laravel') }}</title>
+        <title inertia>Skillscape - Master Your Journey</title>
 
         <link rel="icon" href="/favicon.ico" sizes="any">
         <link rel="icon" href="/favicon.svg" type="image/svg+xml">

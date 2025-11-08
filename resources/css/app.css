@@ -2,6 +2,9 @@
 
 @import 'tw-animate-css';
 
+/* Import fantasy/medieval fonts */
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&family=Cinzel:wght@400;500;600;700&family=Exo+2:wght@400;500;600;700&display=swap');
+
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
@@ -9,13 +12,16 @@
 
 @theme inline {
     --font-sans:
-        Instrument Sans, ui-sans-serif, system-ui, sans-serif,
+        'Exo 2', 'Instrument Sans', ui-sans-serif, system-ui, sans-serif,
         'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
         'Noto Color Emoji';
 
-    --radius-lg: var(--radius);
-    --radius-md: calc(var(--radius) - 2px);
-    --radius-sm: calc(var(--radius) - 4px);
+    --font-heading:
+        'Cinzel', 'MedievalSharp', serif;
+
+    --radius-lg: 2px;
+    --radius-md: 1px;
+    --radius-sm: 0px;
 
     --color-background: var(--background);
     --color-foreground: var(--foreground);
@@ -90,76 +96,113 @@
 }
 
 :root {
-    --background: hsl(0 0% 100%);
-    --foreground: hsl(0 0% 3.9%);
-    --card: hsl(0 0% 100%);
-    --card-foreground: hsl(0 0% 3.9%);
-    --popover: hsl(0 0% 100%);
-    --popover-foreground: hsl(0 0% 3.9%);
-    --primary: hsl(0 0% 9%);
+    /* RuneScape Light Theme - Parchment/Medieval Stone */
+    --background: hsl(43 35% 90%); /* Aged parchment */
+    --foreground: hsl(30 25% 15%); /* Deep brown text */
+
+    --card: hsl(43 40% 88%); /* Lighter parchment */
+    --card-foreground: hsl(30 25% 15%);
+
+    --popover: hsl(43 38% 85%);
+    --popover-foreground: hsl(30 25% 15%);
+
+    --primary: hsl(25 70% 45%); /* Bronze-gold (more orange) */
     --primary-foreground: hsl(0 0% 98%);
-    --secondary: hsl(0 0% 92.1%);
-    --secondary-foreground: hsl(0 0% 9%);
-    --muted: hsl(0 0% 96.1%);
-    --muted-foreground: hsl(0 0% 45.1%);
-    --accent: hsl(0 0% 96.1%);
-    --accent-foreground: hsl(0 0% 9%);
-    --destructive: hsl(0 84.2% 60.2%);
+
+    --secondary: hsl(30 20% 70%); /* Stone gray */
+    --secondary-foreground: hsl(30 25% 15%);
+
+    --muted: hsl(40 25% 80%);
+    --muted-foreground: hsl(30 15% 40%);
+
+    --accent: hsl(30 70% 50%); /* Warm bronze */
+    --accent-foreground: hsl(0 0% 98%);
+
+    --destructive: hsl(0 70% 45%); /* Deep red */
     --destructive-foreground: hsl(0 0% 98%);
-    --border: hsl(0 0% 92.8%);
-    --input: hsl(0 0% 89.8%);
-    --ring: hsl(0 0% 3.9%);
-    --chart-1: hsl(12 76% 61%);
-    --chart-2: hsl(173 58% 39%);
-    --chart-3: hsl(197 37% 24%);
-    --chart-4: hsl(43 74% 66%);
-    --chart-5: hsl(27 87% 67%);
-    --radius: 0.5rem;
-    --sidebar-background: hsl(0 0% 98%);
-    --sidebar-foreground: hsl(240 5.3% 26.1%);
-    --sidebar-primary: hsl(0 0% 10%);
-    --sidebar-primary-foreground: hsl(0 0% 98%);
-    --sidebar-accent: hsl(0 0% 94%);
-    --sidebar-accent-foreground: hsl(0 0% 30%);
-    --sidebar-border: hsl(0 0% 91%);
-    --sidebar-ring: hsl(217.2 91.2% 59.8%);
-    --sidebar: hsl(0 0% 98%);
+
+    --border: hsl(30 35% 55%); /* Brown-bronze border */
+    --input: hsl(43 35% 82%);
+    --ring: hsl(25 70% 45%);
+
+    /* Skill colors inspired by RuneScape */
+    --chart-1: hsl(220 80% 55%); /* Combat blue */
+    --chart-2: hsl(145 70% 45%); /* Woodcutting green */
+    --chart-3: hsl(280 75% 55%); /* Magic purple */
+    --chart-4: hsl(35 90% 50%); /* Mining gold */
+    --chart-5: hsl(15 85% 55%); /* Firemaking orange */
+
+    --radius: 2px; /* Sharp, game-like corners */
+
+    /* Sidebar as game HUD panel */
+    --sidebar-background: hsl(30 25% 22%); /* Dark wood */
+    --sidebar-foreground: hsl(43 60% 80%); /* Light gold text */
+    --sidebar-primary: hsl(43 85% 50%);
+    --sidebar-primary-foreground: hsl(30 30% 10%);
+    --sidebar-accent: hsl(30 25% 28%);
+    --sidebar-accent-foreground: hsl(43 60% 85%);
+    --sidebar-border: hsl(43 75% 35%); /* Gold trim */
+    --sidebar-ring: hsl(43 85% 50%);
+    --sidebar: hsl(30 25% 22%);
+
+    /* XP Bar colors */
+    --xp-bar-bg: hsl(120 30% 25%);
+    --xp-bar-fill: hsl(120 60% 50%);
+    --xp-bar-border: hsl(120 40% 20%);
 }
 
 .dark {
-    --background: hsl(0 0% 3.9%);
-    --foreground: hsl(0 0% 98%);
-    --card: hsl(0 0% 3.9%);
-    --card-foreground: hsl(0 0% 98%);
-    --popover: hsl(0 0% 3.9%);
-    --popover-foreground: hsl(0 0% 98%);
-    --primary: hsl(0 0% 98%);
-    --primary-foreground: hsl(0 0% 9%);
-    --secondary: hsl(0 0% 14.9%);
-    --secondary-foreground: hsl(0 0% 98%);
-    --muted: hsl(0 0% 16.08%);
-    --muted-foreground: hsl(0 0% 63.9%);
-    --accent: hsl(0 0% 14.9%);
-    --accent-foreground: hsl(0 0% 98%);
-    --destructive: hsl(0 84% 60%);
+    /* RuneScape Dark Theme - Night/Cave/Dungeon */
+    --background: hsl(220 25% 8%); /* Deep dungeon blue */
+    --foreground: hsl(35 45% 85%); /* Warm light text */
+
+    --card: hsl(220 22% 12%); /* Dark stone */
+    --card-foreground: hsl(35 45% 85%);
+
+    --popover: hsl(220 22% 10%);
+    --popover-foreground: hsl(35 45% 85%);
+
+    --primary: hsl(30 85% 60%); /* Warm orange-gold */
+    --primary-foreground: hsl(220 25% 10%);
+
+    --secondary: hsl(220 20% 20%); /* Dark stone */
+    --secondary-foreground: hsl(35 40% 80%);
+
+    --muted: hsl(220 18% 18%);
+    --muted-foreground: hsl(43 30% 60%);
+
+    --accent: hsl(35 75% 55%); /* Bright warm bronze */
+    --accent-foreground: hsl(220 25% 10%);
+
+    --destructive: hsl(0 75% 50%); /* Blood red */
     --destructive-foreground: hsl(0 0% 98%);
-    --border: hsl(0 0% 14.9%);
-    --input: hsl(0 0% 14.9%);
-    --ring: hsl(0 0% 83.1%);
-    --chart-1: hsl(220 70% 50%);
-    --chart-2: hsl(160 60% 45%);
-    --chart-3: hsl(30 80% 55%);
-    --chart-4: hsl(280 65% 60%);
-    --chart-5: hsl(340 75% 55%);
-    --sidebar-background: hsl(0 0% 7%);
-    --sidebar-foreground: hsl(0 0% 95.9%);
-    --sidebar-primary: hsl(360, 100%, 100%);
-    --sidebar-primary-foreground: hsl(0 0% 100%);
-    --sidebar-accent: hsl(0 0% 15.9%);
-    --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
-    --sidebar-border: hsl(0 0% 15.9%);
-    --sidebar-ring: hsl(217.2 91.2% 59.8%);
-    --sidebar: hsl(240 5.9% 10%);
+
+    --border: hsl(30 45% 40%); /* Bronze-brown trim */
+    --input: hsl(220 20% 15%);
+    --ring: hsl(30 85% 60%);
+
+    /* Skill colors for dark mode */
+    --chart-1: hsl(220 85% 60%); /* Combat blue */
+    --chart-2: hsl(145 75% 50%); /* Woodcutting green */
+    --chart-3: hsl(280 80% 60%); /* Magic purple */
+    --chart-4: hsl(35 95% 55%); /* Mining gold */
+    --chart-5: hsl(15 90% 60%); /* Firemaking orange */
+
+    /* Dark HUD panel */
+    --sidebar-background: hsl(220 30% 10%);
+    --sidebar-foreground: hsl(43 65% 85%);
+    --sidebar-primary: hsl(43 90% 55%);
+    --sidebar-primary-foreground: hsl(220 25% 10%);
+    --sidebar-accent: hsl(220 28% 15%);
+    --sidebar-accent-foreground: hsl(43 65% 85%);
+    --sidebar-border: hsl(43 70% 40%);
+    --sidebar-ring: hsl(43 90% 55%);
+    --sidebar: hsl(220 30% 10%);
+
+    /* XP Bar colors for dark mode */
+    --xp-bar-bg: hsl(120 35% 18%);
+    --xp-bar-fill: hsl(120 70% 45%);
+    --xp-bar-border: hsl(120 45% 15%);
 }
 
 @layer base {
@@ -168,5 +211,344 @@
     }
     body {
         @apply bg-background text-foreground;
+        font-family: 'Exo 2', sans-serif;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Cinzel', serif;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+    }
+}
+
+@layer components {
+    /* RuneScape-style card with beveled edges and depth */
+    .rs-card {
+        background-color: var(--card);
+        border: 2px solid var(--border);
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.15),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+            0 2px 4px rgba(0, 0, 0, 0.3);
+        position: relative;
+    }
+
+    .rs-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        pointer-events: none;
+    }
+
+    /* Game-style button with chunky 3D effect */
+    .rs-button {
+        font-weight: 600;
+        padding: 0.5rem 1rem;
+        border: 2px solid;
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.3),
+            inset 0 -2px 0 rgba(0, 0, 0, 0.3),
+            0 2px 0 rgba(0, 0, 0, 0.4);
+        transition: all 0.1s ease;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    .rs-button:hover {
+        transform: translateY(-1px);
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.3),
+            inset 0 -2px 0 rgba(0, 0, 0, 0.3),
+            0 3px 0 rgba(0, 0, 0, 0.4);
+    }
+
+    .rs-button:active {
+        transform: translateY(1px);
+        box-shadow:
+            inset 0 1px 0 rgba(0, 0, 0, 0.3),
+            inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+            0 1px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    /* XP/Progress bar with RuneScape styling */
+    .rs-xp-bar {
+        position: relative;
+        height: 1.5rem;
+        overflow: hidden;
+        background: var(--xp-bar-bg);
+        border: 2px solid var(--xp-bar-border);
+        box-shadow:
+            inset 0 2px 4px rgba(0, 0, 0, 0.4),
+            0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    .rs-xp-bar-fill {
+        height: 100%;
+        transition: all 0.3s;
+        background: linear-gradient(
+            to bottom,
+            var(--xp-bar-fill),
+            hsl(from var(--xp-bar-fill) h s calc(l - 10%))
+        );
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+
+    .rs-xp-bar-text {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 0.75rem;
+        text-shadow:
+            -1px -1px 0 rgba(0, 0, 0, 0.8),
+            1px -1px 0 rgba(0, 0, 0, 0.8),
+            -1px 1px 0 rgba(0, 0, 0, 0.8),
+            1px 1px 0 rgba(0, 0, 0, 0.8);
+        color: white;
+    }
+
+    /* Panel with ornate border */
+    .rs-panel {
+        background: linear-gradient(
+            135deg,
+            var(--card),
+            hsl(from var(--card) h s calc(l - 2%))
+        );
+        border: 2px solid var(--border);
+        padding: 1rem;
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.15),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+            0 2px 4px rgba(0, 0, 0, 0.3);
+        position: relative;
+    }
+
+    .rs-panel::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        pointer-events: none;
+    }
+
+    /* Gold text with shimmer effect */
+    .rs-gold-text {
+        color: hsl(25 65% 40%);
+        text-shadow:
+            0 1px 2px rgba(0, 0, 0, 0.3);
+        font-weight: 700;
+    }
+
+    .dark .rs-gold-text {
+        color: hsl(40 80% 65%);
+        text-shadow:
+            0 0 8px rgba(255, 200, 0, 0.4),
+            0 2px 4px rgba(0, 0, 0, 0.8);
+    }
+
+    /* Level badge */
+    .rs-level-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 2rem;
+        height: 1.5rem;
+        padding: 0 0.5rem;
+        border: 2px solid hsl(43 85% 45%);
+        background: linear-gradient(
+            to bottom,
+            hsl(43 70% 35%),
+            hsl(43 60% 25%)
+        );
+        color: hsl(43 95% 85%);
+        font-weight: 700;
+        font-size: 0.75rem;
+        box-shadow:
+            inset 0 1px 0 rgba(255, 215, 0, 0.3),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.5),
+            0 2px 4px rgba(0, 0, 0, 0.4);
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+    }
+
+    /* Sidebar styling */
+    .rs-sidebar {
+        background: linear-gradient(
+            to right,
+            var(--sidebar-background),
+            hsl(from var(--sidebar-background) h s calc(l + 2%))
+        );
+        border-right: 3px solid var(--sidebar-border);
+        box-shadow:
+            inset -2px 0 8px rgba(0, 0, 0, 0.3),
+            3px 0 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Input styling */
+    .rs-input {
+        background-color: var(--input);
+        border: 2px solid var(--border);
+        padding: 0.5rem 0.75rem;
+        box-shadow:
+            inset 0 2px 4px rgba(0, 0, 0, 0.2),
+            0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    .rs-input:focus {
+        outline: none;
+        box-shadow:
+            inset 0 2px 4px rgba(0, 0, 0, 0.2),
+            0 0 0 2px var(--ring);
+    }
+
+    /* Skill icon container */
+    .rs-skill-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 3rem;
+        height: 3rem;
+        border: 2px solid hsl(43 70% 40%);
+        background: radial-gradient(
+            circle at 30% 30%,
+            hsl(43 50% 35%),
+            hsl(43 40% 25%)
+        );
+        box-shadow:
+            inset 0 2px 4px rgba(255, 215, 0, 0.2),
+            inset 0 -2px 4px rgba(0, 0, 0, 0.4),
+            0 2px 6px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Heading with medieval style */
+    .rs-heading {
+        font-family: 'Cinzel', serif;
+        color: hsl(20 70% 35%);
+        text-shadow:
+            0 2px 4px rgba(0, 0, 0, 0.3);
+        font-weight: 700;
+        letter-spacing: 0.05em;
+    }
+
+    .dark .rs-heading {
+        color: hsl(42 85% 70%);
+        text-shadow:
+            0 0 12px rgba(255, 180, 0, 0.5),
+            0 2px 6px rgba(0, 0, 0, 0.9);
+    }
+
+    /* Tooltip/popover styling */
+    .rs-tooltip {
+        background-color: var(--popover);
+        border: 2px solid var(--border);
+        padding: 0.5rem 0.75rem;
+        box-shadow:
+            0 4px 12px rgba(0, 0, 0, 0.5),
+            inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        font-size: 0.875rem;
+    }
+
+    /* Sword fighting animations */
+    @keyframes sword-clash-left {
+        0%, 100% {
+            transform: rotate(-45deg) translateX(0);
+        }
+        50% {
+            transform: rotate(-35deg) translateX(10px);
+        }
+    }
+
+    @keyframes sword-clash-right {
+        0%, 100% {
+            transform: rotate(45deg) translateX(0);
+        }
+        50% {
+            transform: rotate(35deg) translateX(-10px);
+        }
+    }
+
+    @keyframes sword-glow {
+        0%, 100% {
+            filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.3));
+        }
+        50% {
+            filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.8));
+        }
+    }
+
+    @keyframes spark {
+        0% {
+            opacity: 0;
+            transform: scale(0);
+        }
+        50% {
+            opacity: 1;
+            transform: scale(1);
+        }
+        100% {
+            opacity: 0;
+            transform: scale(0.5);
+        }
+    }
+
+    .sword-left {
+        animation: sword-clash-left 2s ease-in-out infinite;
+        transform-origin: bottom right;
+    }
+
+    .sword-right {
+        animation: sword-clash-right 2s ease-in-out infinite;
+        transform-origin: bottom left;
+    }
+
+    .sword-glow {
+        animation: sword-glow 2s ease-in-out infinite;
+    }
+
+    .clash-spark {
+        animation: spark 2s ease-in-out infinite;
+    }
+
+    /* Floating animation for hero elements */
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0px);
+        }
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+
+    .float-animation {
+        animation: float 3s ease-in-out infinite;
+    }
+
+    /* Pulse animation for CTAs */
+    @keyframes pulse-glow {
+        0%, 100% {
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                inset 0 -2px 0 rgba(0, 0, 0, 0.3),
+                0 2px 0 rgba(0, 0, 0, 0.4),
+                0 0 0 0 rgba(218, 165, 32, 0);
+        }
+        50% {
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                inset 0 -2px 0 rgba(0, 0, 0, 0.3),
+                0 2px 0 rgba(0, 0, 0, 0.4),
+                0 0 20px 5px rgba(218, 165, 32, 0.4);
+        }
+    }
+
+    .rs-button-glow {
+        animation: pulse-glow 2s ease-in-out infinite;
     }
 }
