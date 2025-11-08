@@ -2,7 +2,8 @@
 import AppLogoIcon from '@/components/AppLogoIcon.vue';
 import { dashboard, login, register } from '@/routes';
 import { Head, Link } from '@inertiajs/vue3';
-import { Sword, Target, TrendingUp, Trophy, Zap, Shield } from 'lucide-vue-next';
+import { Sword, Target, TrendingUp, Trophy, Zap, Shield, Menu, X } from 'lucide-vue-next';
+import { ref } from 'vue';
 
 withDefaults(
     defineProps<{
@@ -12,6 +13,8 @@ withDefaults(
         canRegister: true,
     },
 );
+
+const mobileMenuOpen = ref(false);
 
 const features = [
     {
@@ -75,17 +78,17 @@ const howItWorks = [
             <div class="container mx-auto px-4 py-4">
                 <div class="flex items-center justify-between">
                     <!-- Logo -->
-                    <div class="flex items-center gap-3">
-                        <div class="size-10 flex items-center justify-center rounded-sm bg-gradient-to-br from-primary to-accent border-2 border-primary/50 shadow-lg">
-                            <AppLogoIcon class="size-7 text-primary-foreground" />
+                    <div class="flex items-center gap-2 sm:gap-3">
+                        <div class="size-8 sm:size-10 flex items-center justify-center rounded-sm bg-gradient-to-br from-primary to-accent border-2 border-primary/50 shadow-lg">
+                            <AppLogoIcon class="size-5 sm:size-7 text-primary-foreground" />
                         </div>
-                        <span class="text-2xl font-bold rs-gold-text" style="font-family: 'Cinzel', serif; letter-spacing: 0.05em;">
+                        <span class="text-lg sm:text-2xl font-bold rs-gold-text" style="font-family: 'Cinzel', serif; letter-spacing: 0.05em;">
                             SKILLSCAPE
                         </span>
                     </div>
 
-                    <!-- Auth Links -->
-                    <div class="flex items-center gap-3">
+                    <!-- Desktop Auth Links -->
+                    <div class="hidden md:flex items-center gap-3">
                         <Link
                             v-if="$page.props.auth.user"
                             :href="dashboard()"
@@ -109,7 +112,57 @@ const howItWorks = [
                             </Link>
                         </template>
                     </div>
+
+                    <!-- Mobile Menu Button -->
+                    <button
+                        class="md:hidden rs-button bg-secondary border-secondary text-secondary-foreground p-2"
+                        @click="mobileMenuOpen = !mobileMenuOpen"
+                        :aria-label="mobileMenuOpen ? 'Close menu' : 'Open menu'"
+                    >
+                        <Menu v-if="!mobileMenuOpen" class="size-5" />
+                        <X v-else class="size-5" />
+                    </button>
                 </div>
+
+                <!-- Mobile Menu -->
+                <Transition
+                    enter-active-class="transition-all duration-200 ease-out"
+                    enter-from-class="opacity-0 -translate-y-2"
+                    enter-to-class="opacity-100 translate-y-0"
+                    leave-active-class="transition-all duration-150 ease-in"
+                    leave-from-class="opacity-100 translate-y-0"
+                    leave-to-class="opacity-0 -translate-y-2"
+                >
+                    <div v-if="mobileMenuOpen" class="md:hidden pt-4 pb-2">
+                        <div class="flex flex-col gap-2">
+                            <Link
+                                v-if="$page.props.auth.user"
+                                :href="dashboard()"
+                                class="rs-button bg-primary border-primary text-primary-foreground w-full text-center"
+                                @click="mobileMenuOpen = false"
+                            >
+                                Dashboard
+                            </Link>
+                            <template v-else>
+                                <Link
+                                    :href="login()"
+                                    class="rs-button bg-secondary border-secondary text-secondary-foreground w-full text-center"
+                                    @click="mobileMenuOpen = false"
+                                >
+                                    Log In
+                                </Link>
+                                <Link
+                                    v-if="canRegister"
+                                    :href="register()"
+                                    class="rs-button bg-primary border-primary text-primary-foreground w-full text-center"
+                                    @click="mobileMenuOpen = false"
+                                >
+                                    Start Your Journey
+                                </Link>
+                            </template>
+                        </div>
+                    </div>
+                </Transition>
             </div>
         </nav>
 
