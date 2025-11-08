@@ -237,83 +237,83 @@ onUnmounted(() => {
     />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="flex h-full flex-1 flex-col gap-6 p-4">
-            <div class="flex items-start gap-6">
-                <div class="text-7xl">{{ skill.icon }}</div>
-                <div class="flex-1">
-                    <div class="flex items-center gap-3">
-                        <h1 class="text-4xl font-bold tracking-tight">
+        <div class="flex h-full flex-1 flex-col gap-4 sm:gap-6 p-3 sm:p-4">
+            <div class="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
+                <div class="text-5xl sm:text-7xl">{{ skill.icon }}</div>
+                <div class="flex-1 w-full sm:w-auto">
+                    <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+                        <h1 class="text-2xl sm:text-4xl font-bold tracking-tight">
                             {{ skill.name }}
                         </h1>
                         <div
-                            class="rounded-full bg-primary/10 px-4 py-1.5 text-base font-bold text-primary"
+                            class="rounded-full bg-primary/10 px-3 sm:px-4 py-1 sm:py-1.5 text-sm sm:text-base font-bold text-primary self-start"
                         >
                             Level {{ userSkill.level }}
                         </div>
                     </div>
-                    <p class="text-muted-foreground mt-2 text-lg">
+                    <p class="text-muted-foreground mt-2 text-base sm:text-lg">
                         {{ skill.description }}
                     </p>
-                    <div class="text-muted-foreground mt-2 text-sm">
+                    <div class="text-muted-foreground mt-2 text-xs sm:text-sm">
                         <span class="font-medium">{{ skill.category }}</span>
                         • {{ skill.xp_rate }} XP per minute
                     </div>
                 </div>
-                <div class="flex gap-3">
+                <div class="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full sm:w-auto">
                     <a
                         :href="`/skills/${skill.id}/flashcards`"
-                        class="rs-button bg-accent border-accent text-accent-foreground px-6 py-3 inline-block"
+                        class="rs-button bg-accent border-accent text-accent-foreground px-4 sm:px-6 py-2 sm:py-3 inline-block text-center text-sm sm:text-base"
                     >
                         📚 Flashcards
                     </a>
                     <button
                         @click="showUntrackConfirm = true"
-                        class="rs-button bg-destructive/10 border-destructive/30 text-destructive px-6 py-3 hover:bg-destructive/20"
+                        class="rs-button bg-destructive/10 border-destructive/30 text-destructive px-4 sm:px-6 py-2 sm:py-3 hover:bg-destructive/20 text-sm sm:text-base"
                     >
                         🗑️ Untrack
                     </button>
                 </div>
             </div>
 
-            <div class="grid gap-6 lg:grid-cols-3">
-                <div class="lg:col-span-2 space-y-6">
+            <div class="grid gap-4 sm:gap-6 lg:grid-cols-3">
+                <div class="lg:col-span-2 space-y-4 sm:space-y-6">
                     <div
-                        class="rounded-xl border border-sidebar-border/70 bg-card p-6 dark:border-sidebar-border"
+                        class="rounded-xl border border-sidebar-border/70 bg-card p-4 sm:p-6 dark:border-sidebar-border"
                     >
-                        <h2 class="text-xl font-semibold mb-4">
+                        <h2 class="text-lg sm:text-xl font-semibold mb-4">
                             Time Tracker
                         </h2>
 
-                        <div class="space-y-6">
+                        <div class="space-y-4 sm:space-y-6">
                             <div
-                                class="rounded-lg bg-secondary/50 p-8 text-center"
+                                class="rounded-lg bg-secondary/50 p-4 sm:p-8 text-center"
                             >
                                 <div
-                                    class="font-mono text-6xl font-bold tracking-wider"
+                                    class="font-mono text-3xl sm:text-6xl font-bold tracking-wider"
                                     :class="isTracking ? 'text-green-600 dark:text-green-400' : ''"
                                 >
                                     {{ formattedTime }}
                                 </div>
                                 <div
                                     v-if="isTracking"
-                                    class="text-muted-foreground mt-2 text-sm"
+                                    class="text-muted-foreground mt-2 text-xs sm:text-sm"
                                 >
                                     Estimated: +{{ formatNumber(estimatedXp) }}
                                     XP
                                 </div>
                             </div>
 
-                            <div v-if="!isTracking" class="space-y-4">
+                            <div v-if="!isTracking" class="space-y-3 sm:space-y-4">
                                 <div>
                                     <label
-                                        class="text-sm font-medium mb-2 block"
+                                        class="text-xs sm:text-sm font-medium mb-2 block"
                                     >
                                         Session Notes (Optional)
                                     </label>
                                     <textarea
                                         v-model="sessionNotes"
                                         placeholder="What are you working on?"
-                                        class="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                                        class="w-full rounded-lg border border-input bg-background px-3 py-2 text-xs sm:text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                                         rows="3"
                                     />
                                 </div>
@@ -321,7 +321,7 @@ onUnmounted(() => {
                                 <button
                                     @click="startTracking"
                                     :disabled="isStarting"
-                                    class="w-full rounded-lg bg-green-600 px-6 py-4 text-lg font-semibold text-white transition-colors hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    class="w-full rounded-lg bg-green-600 px-4 sm:px-6 py-3 sm:py-4 text-base sm:text-lg font-semibold text-white transition-colors hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
                                     {{ isStarting ? 'Starting...' : 'Start Training' }}
                                 </button>
@@ -337,7 +337,7 @@ onUnmounted(() => {
 
                                 <button
                                     @click="showManualEntry = true"
-                                    class="w-full rounded-lg border-2 border-primary/20 bg-transparent px-6 py-3 text-base font-semibold text-primary transition-colors hover:bg-primary/10 hover:border-primary/40"
+                                    class="w-full rounded-lg border-2 border-primary/20 bg-transparent px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base font-semibold text-primary transition-colors hover:bg-primary/10 hover:border-primary/40"
                                 >
                                     Log Time Manually
                                 </button>
@@ -347,7 +347,7 @@ onUnmounted(() => {
                                 v-else
                                 @click="stopTracking"
                                 :disabled="isStopping"
-                                class="w-full rounded-lg bg-red-600 px-6 py-4 text-lg font-semibold text-white transition-colors hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                                class="w-full rounded-lg bg-red-600 px-4 sm:px-6 py-3 sm:py-4 text-base sm:text-lg font-semibold text-white transition-colors hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 {{ isStopping ? 'Stopping...' : 'Stop Training' }}
                             </button>
@@ -355,41 +355,41 @@ onUnmounted(() => {
                     </div>
 
                     <div
-                        class="rounded-xl border border-sidebar-border/70 bg-card p-6 dark:border-sidebar-border"
+                        class="rounded-xl border border-sidebar-border/70 bg-card p-4 sm:p-6 dark:border-sidebar-border"
                     >
-                        <h2 class="text-xl font-semibold mb-4">
+                        <h2 class="text-lg sm:text-xl font-semibold mb-4">
                             Recent Sessions
                         </h2>
 
                         <div
                             v-if="recentSessions.length === 0"
-                            class="text-muted-foreground py-8 text-center"
+                            class="text-muted-foreground py-8 text-center text-sm sm:text-base"
                         >
                             No sessions yet. Start tracking to see your history!
                         </div>
 
-                        <div v-else class="space-y-3">
+                        <div v-else class="space-y-2 sm:space-y-3">
                             <div
                                 v-for="session in recentSessions"
                                 :key="session.id"
-                                class="flex items-center justify-between rounded-lg border border-sidebar-border/50 p-4"
+                                class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 rounded-lg border border-sidebar-border/50 p-3 sm:p-4"
                             >
-                                <div class="flex-1">
-                                    <div class="font-medium">
+                                <div class="flex-1 min-w-0">
+                                    <div class="font-medium text-sm sm:text-base">
                                         {{ formatDate(session.started_at) }}
                                     </div>
                                     <div
                                         v-if="session.notes"
-                                        class="text-muted-foreground text-sm mt-1"
+                                        class="text-muted-foreground text-xs sm:text-sm mt-1 truncate"
                                     >
                                         {{ session.notes }}
                                     </div>
                                 </div>
-                                <div class="text-right">
-                                    <div class="font-semibold">
+                                <div class="flex justify-between sm:justify-end sm:text-right gap-4 sm:gap-0 sm:flex-col">
+                                    <div class="font-semibold text-sm sm:text-base">
                                         {{ session.duration_minutes }} min
                                     </div>
-                                    <div class="text-green-600 text-sm dark:text-green-400">
+                                    <div class="text-green-600 text-xs sm:text-sm dark:text-green-400">
                                         +{{ formatNumber(session.experience_gained || 0) }} XP
                                     </div>
                                 </div>
@@ -398,27 +398,27 @@ onUnmounted(() => {
                     </div>
                 </div>
 
-                <div class="space-y-6">
+                <div class="space-y-4 sm:space-y-6">
                     <div
-                        class="rounded-xl border border-sidebar-border/70 bg-card p-6 dark:border-sidebar-border"
+                        class="rounded-xl border border-sidebar-border/70 bg-card p-4 sm:p-6 dark:border-sidebar-border"
                     >
-                        <h2 class="text-lg font-semibold mb-4">
+                        <h2 class="text-base sm:text-lg font-semibold mb-4">
                             Level Progress
                         </h2>
 
                         <div class="space-y-4">
                             <div class="text-center">
-                                <div class="text-5xl font-bold text-primary">
+                                <div class="text-4xl sm:text-5xl font-bold text-primary">
                                     {{ userSkill.level }}
                                 </div>
-                                <div class="text-muted-foreground text-sm mt-1">
+                                <div class="text-muted-foreground text-xs sm:text-sm mt-1">
                                     Current Level
                                 </div>
                             </div>
 
                             <div class="space-y-2">
                                 <div
-                                    class="flex items-center justify-between text-sm"
+                                    class="flex items-center justify-between text-xs sm:text-sm"
                                 >
                                     <span class="text-muted-foreground">
                                         XP Progress
@@ -431,7 +431,7 @@ onUnmounted(() => {
                                 </div>
 
                                 <div
-                                    class="relative h-4 w-full overflow-hidden rounded-full bg-secondary"
+                                    class="relative h-3 sm:h-4 w-full overflow-hidden rounded-full bg-secondary"
                                 >
                                     <div
                                         class="h-full rounded-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-500"
@@ -439,14 +439,14 @@ onUnmounted(() => {
                                     />
                                 </div>
 
-                                <div class="text-center text-sm font-medium">
+                                <div class="text-center text-xs sm:text-sm font-medium">
                                     {{ userSkill.progress_percentage }}% to
                                     Level {{ userSkill.level + 1 }}
                                 </div>
                             </div>
 
                             <div class="pt-4 border-t border-sidebar-border/50 space-y-2">
-                                <div class="flex justify-between text-sm">
+                                <div class="flex justify-between text-xs sm:text-sm">
                                     <span class="text-muted-foreground">
                                         Total XP
                                     </span>
@@ -454,7 +454,7 @@ onUnmounted(() => {
                                         {{ formatNumber(userSkill.experience) }}
                                     </span>
                                 </div>
-                                <div class="flex justify-between text-sm">
+                                <div class="flex justify-between text-xs sm:text-sm">
                                     <span class="text-muted-foreground">
                                         XP to Next Level
                                     </span>
@@ -468,27 +468,27 @@ onUnmounted(() => {
 
                     <div
                         v-if="skill.resources && skill.resources.length > 0"
-                        class="rounded-xl border border-sidebar-border/70 bg-card p-6 dark:border-sidebar-border"
+                        class="rounded-xl border border-sidebar-border/70 bg-card p-4 sm:p-6 dark:border-sidebar-border"
                     >
-                        <h2 class="text-lg font-semibold mb-4">
+                        <h2 class="text-base sm:text-lg font-semibold mb-4">
                             Learning Resources
                         </h2>
 
-                        <div class="space-y-3">
+                        <div class="space-y-2 sm:space-y-3">
                             <a
                                 v-for="(resource, index) in skill.resources"
                                 :key="index"
                                 :href="resource.url"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                class="flex items-center gap-3 rounded-lg border border-sidebar-border/50 p-4 transition-colors hover:bg-accent hover:border-primary group"
+                                class="flex items-center gap-2 sm:gap-3 rounded-lg border border-sidebar-border/50 p-3 sm:p-4 transition-colors hover:bg-accent hover:border-primary group"
                             >
                                 <div
-                                    class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary"
+                                    class="flex h-8 w-8 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary"
                                 >
                                     <svg
                                         v-if="resource.type === 'youtube'"
-                                        class="h-5 w-5"
+                                        class="h-4 w-4 sm:h-5 sm:w-5"
                                         fill="currentColor"
                                         viewBox="0 0 24 24"
                                     >
@@ -496,7 +496,7 @@ onUnmounted(() => {
                                     </svg>
                                     <svg
                                         v-else-if="resource.type === 'website'"
-                                        class="h-5 w-5"
+                                        class="h-4 w-4 sm:h-5 sm:w-5"
                                         fill="none"
                                         stroke="currentColor"
                                         viewBox="0 0 24 24"
@@ -505,7 +505,7 @@ onUnmounted(() => {
                                     </svg>
                                     <svg
                                         v-else-if="resource.type === 'app'"
-                                        class="h-5 w-5"
+                                        class="h-4 w-4 sm:h-5 sm:w-5"
                                         fill="none"
                                         stroke="currentColor"
                                         viewBox="0 0 24 24"
@@ -514,7 +514,7 @@ onUnmounted(() => {
                                     </svg>
                                     <svg
                                         v-else
-                                        class="h-5 w-5"
+                                        class="h-4 w-4 sm:h-5 sm:w-5"
                                         fill="none"
                                         stroke="currentColor"
                                         viewBox="0 0 24 24"
@@ -524,7 +524,7 @@ onUnmounted(() => {
                                 </div>
 
                                 <div class="flex-1 min-w-0">
-                                    <div class="font-medium group-hover:text-primary transition-colors">
+                                    <div class="font-medium text-sm sm:text-base group-hover:text-primary transition-colors">
                                         {{ resource.title }}
                                     </div>
                                     <div class="text-muted-foreground text-xs mt-0.5 truncate">
@@ -533,7 +533,7 @@ onUnmounted(() => {
                                 </div>
 
                                 <svg
-                                    class="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors"
+                                    class="h-3 w-3 sm:h-4 sm:w-4 shrink-0 text-muted-foreground group-hover:text-primary transition-colors"
                                     fill="none"
                                     stroke="currentColor"
                                     viewBox="0 0 24 24"

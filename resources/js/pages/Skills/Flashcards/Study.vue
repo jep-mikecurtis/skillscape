@@ -128,32 +128,32 @@ const goBack = () => {
     <Head :title="`${skill.name} - Study`" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="flex h-full flex-1 flex-col gap-6 p-4">
+        <div class="flex h-full flex-1 flex-col gap-4 sm:gap-6 p-3 sm:p-4">
             <!-- Header -->
-            <div class="flex items-center justify-between">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
                 <button
                     @click="goBack"
-                    class="rs-button bg-secondary border-secondary text-secondary-foreground px-4 py-2"
+                    class="rs-button bg-secondary border-secondary text-secondary-foreground px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base"
                 >
-                    <ArrowLeft class="inline-block size-5 mr-2" />
+                    <ArrowLeft class="inline-block size-4 sm:size-5 mr-1 sm:mr-2" />
                     Back to Flashcards
                 </button>
 
-                <div class="text-center">
-                    <div class="text-2xl font-bold rs-heading">{{ skill.icon }} {{ skill.name }}</div>
-                    <div class="text-muted-foreground text-sm">Study Mode</div>
+                <div class="text-center w-full sm:w-auto">
+                    <div class="text-xl sm:text-2xl font-bold rs-heading">{{ skill.icon }} {{ skill.name }}</div>
+                    <div class="text-muted-foreground text-xs sm:text-sm">Study Mode</div>
                 </div>
 
-                <div class="w-32"></div>
+                <div class="hidden sm:block sm:w-32"></div>
             </div>
 
             <!-- Progress Bar -->
             <div v-if="!isFinished" class="rs-panel">
                 <div class="flex items-center justify-between mb-2">
-                    <span class="text-sm font-medium">Progress</span>
-                    <span class="text-sm font-medium">{{ totalAnswered }} / {{ flashcards.length }}</span>
+                    <span class="text-xs sm:text-sm font-medium">Progress</span>
+                    <span class="text-xs sm:text-sm font-medium">{{ totalAnswered }} / {{ flashcards.length }}</span>
                 </div>
-                <div class="relative h-4 w-full overflow-hidden rounded-full bg-secondary">
+                <div class="relative h-3 sm:h-4 w-full overflow-hidden rounded-full bg-secondary">
                     <div
                         class="h-full rounded-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-500"
                         :style="`width: ${progress}%`"
@@ -165,119 +165,119 @@ const goBack = () => {
             <div v-if="!isFinished && currentCard" class="flex-1 flex items-center justify-center">
                 <div class="max-w-3xl w-full">
                     <!-- Card Counter -->
-                    <div class="text-center text-muted-foreground text-sm mb-4">
+                    <div class="text-center text-muted-foreground text-xs sm:text-sm mb-3 sm:mb-4">
                         Card {{ currentIndex + 1 }} of {{ flashcards.length }}
                     </div>
 
                     <!-- Flashcard -->
                     <div
-                        class="rs-panel min-h-[400px] flex flex-col cursor-pointer select-none relative"
+                        class="rs-panel min-h-[280px] sm:min-h-[400px] flex flex-col cursor-pointer select-none relative"
                         @click="flipCard"
                     >
-                        <div class="absolute top-4 right-4 text-xs text-muted-foreground font-medium uppercase">
+                        <div class="absolute top-3 sm:top-4 right-3 sm:right-4 text-xs text-muted-foreground font-medium uppercase">
                             {{ showAnswer ? 'Answer' : 'Question' }}
                         </div>
 
-                        <div class="flex-1 flex items-center justify-center p-12">
+                        <div class="flex-1 flex items-center justify-center p-6 sm:p-12">
                             <div class="text-center">
-                                <p class="text-2xl leading-relaxed">
+                                <p class="text-base sm:text-2xl leading-relaxed">
                                     {{ showAnswer ? currentCard.answer : currentCard.question }}
                                 </p>
                             </div>
                         </div>
 
-                        <div class="text-center text-sm text-muted-foreground pb-6">
+                        <div class="text-center text-xs sm:text-sm text-muted-foreground pb-4 sm:pb-6">
                             {{ showAnswer ? 'Click to see question' : 'Click to reveal answer' }}
                         </div>
                     </div>
 
                     <!-- Answer Buttons -->
-                    <div v-if="showAnswer" class="grid grid-cols-2 gap-4 mt-6">
+                    <div v-if="showAnswer" class="grid grid-cols-2 gap-3 sm:gap-4 mt-4 sm:mt-6">
                         <button
                             @click.stop="markIncorrect"
-                            class="rs-button bg-red-600 border-red-600 text-white px-8 py-6 text-lg"
+                            class="rs-button bg-red-600 border-red-600 text-white px-4 sm:px-8 py-4 sm:py-6 text-base sm:text-lg"
                         >
-                            <X class="inline-block size-6 mr-2" />
+                            <X class="inline-block size-5 sm:size-6 mr-1 sm:mr-2" />
                             Incorrect
                         </button>
                         <button
                             @click.stop="markCorrect"
-                            class="rs-button bg-green-600 border-green-600 text-white px-8 py-6 text-lg"
+                            class="rs-button bg-green-600 border-green-600 text-white px-4 sm:px-8 py-4 sm:py-6 text-base sm:text-lg"
                         >
-                            <Check class="inline-block size-6 mr-2" />
+                            <Check class="inline-block size-5 sm:size-6 mr-1 sm:mr-2" />
                             Correct
                         </button>
                     </div>
 
                     <!-- Stats -->
-                    <div class="grid grid-cols-3 gap-4 mt-6">
-                        <div class="rs-panel text-center">
-                            <div class="text-3xl font-bold text-green-600 dark:text-green-400">
+                    <div class="grid grid-cols-3 gap-2 sm:gap-4 mt-4 sm:mt-6">
+                        <div class="rs-panel text-center py-3 sm:py-4">
+                            <div class="text-2xl sm:text-3xl font-bold text-green-600 dark:text-green-400">
                                 {{ correctCount }}
                             </div>
-                            <div class="text-sm text-muted-foreground">Correct</div>
+                            <div class="text-xs sm:text-sm text-muted-foreground mt-1">Correct</div>
                         </div>
-                        <div class="rs-panel text-center">
-                            <div class="text-3xl font-bold text-red-600 dark:text-red-400">
+                        <div class="rs-panel text-center py-3 sm:py-4">
+                            <div class="text-2xl sm:text-3xl font-bold text-red-600 dark:text-red-400">
                                 {{ incorrectCount }}
                             </div>
-                            <div class="text-sm text-muted-foreground">Incorrect</div>
+                            <div class="text-xs sm:text-sm text-muted-foreground mt-1">Incorrect</div>
                         </div>
-                        <div class="rs-panel text-center">
-                            <div class="text-3xl font-bold text-primary">
+                        <div class="rs-panel text-center py-3 sm:py-4">
+                            <div class="text-2xl sm:text-3xl font-bold text-primary">
                                 {{ accuracy }}%
                             </div>
-                            <div class="text-sm text-muted-foreground">Accuracy</div>
+                            <div class="text-xs sm:text-sm text-muted-foreground mt-1">Accuracy</div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Completion Screen -->
-            <div v-else-if="isFinished" class="flex-1 flex items-center justify-center">
+            <div v-else-if="isFinished" class="flex-1 flex items-center justify-center px-3">
                 <div class="max-w-2xl w-full text-center">
-                    <div class="text-7xl mb-6">🎉</div>
-                    <h2 class="text-4xl font-bold mb-4 rs-heading">Study Session Complete!</h2>
-                    <p class="text-muted-foreground text-lg mb-8">
+                    <div class="text-5xl sm:text-7xl mb-4 sm:mb-6">🎉</div>
+                    <h2 class="text-2xl sm:text-4xl font-bold mb-3 sm:mb-4 rs-heading">Study Session Complete!</h2>
+                    <p class="text-muted-foreground text-base sm:text-lg mb-6 sm:mb-8">
                         Great job! You've reviewed all {{ flashcards.length }} flashcards.
                     </p>
 
                     <!-- Final Stats -->
-                    <div class="grid grid-cols-3 gap-6 mb-8">
-                        <div class="rs-panel">
-                            <div class="text-4xl font-bold text-green-600 dark:text-green-400 mb-2">
+                    <div class="grid grid-cols-3 gap-3 sm:gap-6 mb-6 sm:mb-8">
+                        <div class="rs-panel py-4 sm:py-6">
+                            <div class="text-3xl sm:text-4xl font-bold text-green-600 dark:text-green-400 mb-1 sm:mb-2">
                                 {{ correctCount }}
                             </div>
-                            <div class="text-sm text-muted-foreground">Correct</div>
+                            <div class="text-xs sm:text-sm text-muted-foreground">Correct</div>
                         </div>
-                        <div class="rs-panel">
-                            <div class="text-4xl font-bold text-red-600 dark:text-red-400 mb-2">
+                        <div class="rs-panel py-4 sm:py-6">
+                            <div class="text-3xl sm:text-4xl font-bold text-red-600 dark:text-red-400 mb-1 sm:mb-2">
                                 {{ incorrectCount }}
                             </div>
-                            <div class="text-sm text-muted-foreground">Incorrect</div>
+                            <div class="text-xs sm:text-sm text-muted-foreground">Incorrect</div>
                         </div>
-                        <div class="rs-panel">
-                            <div class="text-4xl font-bold text-primary mb-2">
+                        <div class="rs-panel py-4 sm:py-6">
+                            <div class="text-3xl sm:text-4xl font-bold text-primary mb-1 sm:mb-2">
                                 {{ accuracy }}%
                             </div>
-                            <div class="text-sm text-muted-foreground">Accuracy</div>
+                            <div class="text-xs sm:text-sm text-muted-foreground">Accuracy</div>
                         </div>
                     </div>
 
                     <!-- Actions -->
-                    <div class="flex gap-4 justify-center">
+                    <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                         <button
                             @click="goBack"
-                            class="rs-button bg-secondary border-secondary text-secondary-foreground px-8 py-4 text-lg"
+                            class="rs-button bg-secondary border-secondary text-secondary-foreground px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg"
                         >
-                            <ArrowLeft class="inline-block size-5 mr-2" />
+                            <ArrowLeft class="inline-block size-4 sm:size-5 mr-1 sm:mr-2" />
                             Back to Flashcards
                         </button>
                         <button
                             @click="restart"
-                            class="rs-button bg-primary border-primary text-primary-foreground px-8 py-4 text-lg"
+                            class="rs-button bg-primary border-primary text-primary-foreground px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg"
                         >
-                            <RotateCcw class="inline-block size-5 mr-2" />
+                            <RotateCcw class="inline-block size-4 sm:size-5 mr-1 sm:mr-2" />
                             Study Again
                         </button>
                     </div>
@@ -285,18 +285,18 @@ const goBack = () => {
             </div>
 
             <!-- No Flashcards -->
-            <div v-else class="flex-1 flex items-center justify-center">
+            <div v-else class="flex-1 flex items-center justify-center px-3">
                 <div class="text-center">
-                    <div class="text-7xl mb-6">📚</div>
-                    <h2 class="text-3xl font-bold mb-4 rs-heading">No Flashcards Yet</h2>
-                    <p class="text-muted-foreground text-lg mb-6">
+                    <div class="text-5xl sm:text-7xl mb-4 sm:mb-6">📚</div>
+                    <h2 class="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 rs-heading">No Flashcards Yet</h2>
+                    <p class="text-muted-foreground text-base sm:text-lg mb-4 sm:mb-6">
                         Create some flashcards first to start studying!
                     </p>
                     <button
                         @click="goBack"
-                        class="rs-button bg-primary border-primary text-primary-foreground px-8 py-4 text-lg"
+                        class="rs-button bg-primary border-primary text-primary-foreground px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg"
                     >
-                        <ArrowLeft class="inline-block size-5 mr-2" />
+                        <ArrowLeft class="inline-block size-4 sm:size-5 mr-1 sm:mr-2" />
                         Go to Flashcards
                     </button>
                 </div>
