@@ -1,59 +1,104 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-    <!-- Medieval Shield -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+    <!-- Gradient Definitions -->
+    <defs>
+        <linearGradient id="shieldGold" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#F5D76E;stop-opacity:1" />
+            <stop offset="50%" style="stop-color:#D4AF37;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#B8941E;stop-opacity:1" />
+        </linearGradient>
+        <linearGradient id="shieldInner" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#4A3410;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#2D1F08;stop-opacity:1" />
+        </linearGradient>
+        <linearGradient id="swordBlade" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:1" />
+            <stop offset="50%" style="stop-color:#E8E8E8;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#C0C0C0;stop-opacity:1" />
+        </linearGradient>
+    </defs>
+
+    <!-- Outer Shield -->
     <path
-        fill="#D4AF37"
-        d="M50 5 C30 5, 15 10, 10 15 L10 45 C10 65, 25 85, 50 95 C75 85, 90 65, 90 45 L90 15 C85 10, 70 5, 50 5 Z"
+        fill="url(#shieldGold)"
+        d="M64 10 C38 10, 20 16, 14 22 L14 58 C14 84, 32 108, 64 120 C96 108, 114 84, 114 58 L114 22 C108 16, 90 10, 64 10 Z"
     />
 
-    <!-- Shield Border/Highlight -->
+    <!-- Shield Border Highlight -->
     <path
         fill="none"
         stroke="#F5D76E"
-        stroke-width="2"
-        d="M50 8 C31 8, 17 12, 13 17 L13 45 C13 63, 27 81, 50 90 C73 81, 87 63, 87 45 L87 17 C83 12, 69 8, 50 8 Z"
-        opacity="0.6"
+        stroke-width="2.5"
+        d="M64 13 C39 13, 22 18, 17 24 L17 58 C17 82, 34 104, 64 115 C94 104, 111 82, 111 58 L111 24 C106 18, 89 13, 64 13 Z"
+        opacity="0.5"
     />
 
     <!-- Inner Shield -->
     <path
-        fill="#8B6914"
-        d="M50 15 C35 15, 23 18, 20 22 L20 45 C20 60, 30 75, 50 82 C70 75, 80 60, 80 45 L80 22 C77 18, 65 15, 50 15 Z"
+        fill="url(#shieldInner)"
+        d="M64 24 C44 24, 30 28, 26 32 L26 58 C26 76, 38 94, 64 103 C90 94, 102 76, 102 58 L102 32 C98 28, 84 24, 64 24 Z"
     />
 
     <!-- Sword -->
     <g>
         <!-- Blade -->
         <path
-            fill="#E8E8E8"
-            d="M50 28 L48 50 L52 50 Z"
+            fill="url(#swordBlade)"
+            d="M64 38 L60 64 L68 64 Z"
+            stroke="#B0B0B0"
+            stroke-width="0.5"
+        />
+        <!-- Blade shine -->
+        <path
+            fill="#FFFFFF"
+            d="M64 38 L61.5 64 L63 64 Z"
+            opacity="0.4"
         />
         <!-- Cross guard -->
         <rect
-            x="45"
-            y="49"
-            width="10"
-            height="2.5"
-            fill="#D4AF37"
+            x="56"
+            y="63"
+            width="16"
+            height="3.5"
+            rx="0.5"
+            fill="url(#shieldGold)"
+            stroke="#B8941E"
+            stroke-width="0.5"
         />
         <!-- Grip -->
         <rect
-            x="48.5"
-            y="51.5"
-            width="3"
-            height="8"
-            rx="0.5"
-            fill="#8B6914"
+            x="61"
+            y="66.5"
+            width="6"
+            height="11"
+            rx="1"
+            fill="#4A3410"
+            stroke="#2D1F08"
+            stroke-width="0.5"
         />
+        <!-- Grip wrapping lines -->
+        <line x1="61" y1="69" x2="67" y2="69" stroke="#D4AF37" stroke-width="0.5" opacity="0.6"/>
+        <line x1="61" y1="72" x2="67" y2="72" stroke="#D4AF37" stroke-width="0.5" opacity="0.6"/>
+        <line x1="61" y1="75" x2="67" y2="75" stroke="#D4AF37" stroke-width="0.5" opacity="0.6"/>
         <!-- Pommel -->
         <circle
-            cx="50"
-            cy="61"
-            r="2.5"
-            fill="#D4AF37"
+            cx="64"
+            cy="79.5"
+            r="3.5"
+            fill="url(#shieldGold)"
+            stroke="#B8941E"
+            stroke-width="0.5"
+        />
+        <circle
+            cx="64"
+            cy="79.5"
+            r="1.5"
+            fill="#F5D76E"
         />
     </g>
 
-    <!-- Stars/Level indicators -->
-    <circle cx="30" cy="38" r="2" fill="#F5D76E" opacity="0.8" />
-    <circle cx="70" cy="38" r="2" fill="#F5D76E" opacity="0.8" />
+    <!-- Level indicator stars -->
+    <g opacity="0.9">
+        <path d="M34 48 L35 51 L38 51 L36 53 L37 56 L34 54 L31 56 L32 53 L30 51 L33 51 Z" fill="#F5D76E"/>
+        <path d="M94 48 L95 51 L98 51 L96 53 L97 56 L94 54 L91 56 L92 53 L90 51 L93 51 Z" fill="#F5D76E"/>
+    </g>
 </svg>

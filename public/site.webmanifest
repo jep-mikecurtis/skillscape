@@ -1,0 +1,23 @@
+{
+    "name": "SkillScape - Master Your Journey",
+    "short_name": "SkillScape",
+    "description": "Track your skills, level up your life. A gamified skill tracking app with RPG mechanics.",
+    "icons": [
+        {
+            "src": "/favicon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/apple-touch-icon.png",
+            "sizes": "180x180",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#D4AF37",
+    "background_color": "#0F1419",
+    "display": "standalone",
+    "start_url": "/",
+    "scope": "/"
+}
