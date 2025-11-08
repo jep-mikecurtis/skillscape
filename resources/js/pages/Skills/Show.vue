@@ -70,6 +70,7 @@ const isStarting = ref(false);
 const isStopping = ref(false);
 const showLevelUp = ref(false);
 const showManualEntry = ref(false);
+const showUntrackConfirm = ref(false);
 const levelUpData = ref<any>(null);
 let timerInterval: ReturnType<typeof setInterval> | null = null;
 
@@ -208,6 +209,14 @@ const handleManualEntrySuccess = (data: any) => {
     router.reload({ only: ['userSkill', 'recentSessions', 'activeSession'] });
 };
 
+const untrackSkill = () => {
+    router.delete(`/user-skills/${props.userSkill.id}`, {
+        onSuccess: () => {
+            showUntrackConfirm.value = false;
+        },
+    });
+};
+
 onUnmounted(() => {
     stopTimer();
 });
@@ -249,6 +258,20 @@ onUnmounted(() => {
                         <span class="font-medium">{{ skill.category }}</span>
                         • {{ skill.xp_rate }} XP per minute
                     </div>
+                </div>
+                <div class="flex gap-3">
+                    <a
+                        :href="`/skills/${skill.id}/flashcards`"
+                        class="rs-button bg-accent border-accent text-accent-foreground px-6 py-3 inline-block"
+                    >
+                        📚 Flashcards
+                    </a>
+                    <button
+                        @click="showUntrackConfirm = true"
+                        class="rs-button bg-destructive/10 border-destructive/30 text-destructive px-6 py-3 hover:bg-destructive/20"
+                    >
+                        🗑️ Untrack
+                    </button>
                 </div>
             </div>
 
@@ -524,4 +547,50 @@ onUnmounted(() => {
             </div>
         </div>
     </AppLayout>
+
+    <!-- Untrack Confirmation Modal -->
+    <div
+        v-if="showUntrackConfirm"
+        class="fixed inset-0 z-50 flex items-center justify-center p-4"
+        style="background-color: rgba(0, 0, 0, 0.75);"
+        @click.self="showUntrackConfirm = false"
+    >
+        <div class="relative max-w-md w-full">
+            <div class="rounded-xl border-4 border-destructive/30 bg-card shadow-2xl" style="box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.1), inset 0 -2px 0 rgba(0, 0, 0, 0.2);">
+                <!-- Header -->
+                <div class="border-b-4 border-destructive/20 bg-gradient-to-r from-destructive/5 via-destructive/10 to-destructive/5 px-8 py-6">
+                    <div class="flex items-center gap-3">
+                        <div class="text-4xl">⚠️</div>
+                        <h2 class="text-2xl font-bold rs-heading text-destructive">Untrack Skill?</h2>
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div class="px-8 py-6">
+                    <p class="text-base mb-4 leading-relaxed">
+                        Are you sure you want to stop tracking <strong>{{ skill.name }}</strong>?
+                    </p>
+                    <p class="text-base mb-6 leading-relaxed text-destructive font-semibold">
+                        This will permanently delete all associated data including flashcards, time entries, and your progress. This action cannot be undone.
+                    </p>
+
+                    <!-- Buttons -->
+                    <div class="flex gap-4 justify-end">
+                        <button
+                            @click="showUntrackConfirm = false"
+                            class="rs-button bg-secondary border-secondary text-secondary-foreground px-8 py-3 text-base"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            @click="untrackSkill"
+                            class="rs-button bg-destructive border-destructive text-destructive-foreground px-8 py-3 text-base font-bold"
+                        >
+                            🗑️ Untrack Forever
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>

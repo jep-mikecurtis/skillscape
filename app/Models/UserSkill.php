@@ -38,6 +38,11 @@ class UserSkill extends Model
         return $this->hasMany(TimeEntry::class);
     }
 
+    public function flashcards(): HasMany
+    {
+        return $this->hasMany(Flashcard::class);
+    }
+
     /**
      * Calculate experience needed for a given level (RuneScape formula)
      */
