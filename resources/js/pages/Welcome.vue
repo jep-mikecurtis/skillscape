@@ -416,6 +416,133 @@ const howItWorks = [
             </div>
         </section>
 
+        <!-- Learning Resources Section -->
+        <section class="py-20 bg-card/30">
+            <div class="container mx-auto px-4">
+                <div class="max-w-6xl mx-auto">
+                    <!-- Section Header -->
+                    <div class="text-center mb-16">
+                        <h2 class="text-4xl md:text-5xl font-bold mb-4 rs-heading">
+                            Curated Learning Resources
+                        </h2>
+                        <p class="text-xl text-muted-foreground max-w-2xl mx-auto">
+                            Every skill comes with handpicked resources to accelerate your learning
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                        <!-- Visual Example -->
+                        <div class="order-2 lg:order-1">
+                            <div class="rs-panel">
+                                <div class="space-y-3">
+                                    <!-- Example Resource 1 -->
+                                    <div class="flex items-center gap-3 rounded-lg border border-sidebar-border/50 p-4 bg-accent/5">
+                                        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-red-500/10 text-red-600">
+                                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                                            </svg>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <div class="font-semibold text-sm sm:text-base">JavaScript Mastery Course</div>
+                                            <div class="text-muted-foreground text-xs">YouTube Tutorial</div>
+                                        </div>
+                                        <svg class="h-4 w-4 text-muted-foreground shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                                        </svg>
+                                    </div>
+
+                                    <!-- Example Resource 2 -->
+                                    <div class="flex items-center gap-3 rounded-lg border border-sidebar-border/50 p-4 bg-accent/5">
+                                        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-500/10 text-blue-600">
+                                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+                                            </svg>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <div class="font-semibold text-sm sm:text-base">MDN Web Docs</div>
+                                            <div class="text-muted-foreground text-xs">Documentation</div>
+                                        </div>
+                                        <svg class="h-4 w-4 text-muted-foreground shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                                        </svg>
+                                    </div>
+
+                                    <!-- Example Resource 3 -->
+                                    <div class="flex items-center gap-3 rounded-lg border border-sidebar-border/50 p-4 bg-accent/5">
+                                        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-green-500/10 text-green-600">
+                                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                                            </svg>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <div class="font-semibold text-sm sm:text-base">Practice Coding Challenges</div>
+                                            <div class="text-muted-foreground text-xs">Interactive App</div>
+                                        </div>
+                                        <svg class="h-4 w-4 text-muted-foreground shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Text Content -->
+                        <div class="order-1 lg:order-2">
+                            <div class="space-y-6">
+                                <div class="flex items-start gap-4">
+                                    <div class="rs-skill-icon shrink-0">
+                                        <svg class="size-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-xl font-bold mb-2" style="font-family: 'Cinzel', serif;">
+                                            Hand-Picked Quality
+                                        </h3>
+                                        <p class="text-muted-foreground">
+                                            Each skill includes carefully selected videos, articles, apps, and websites to guide your learning journey.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start gap-4">
+                                    <div class="rs-skill-icon shrink-0">
+                                        <svg class="size-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-xl font-bold mb-2" style="font-family: 'Cinzel', serif;">
+                                            Learn Faster
+                                        </h3>
+                                        <p class="text-muted-foreground">
+                                            No more endless searching for tutorials. We've done the research so you can focus on learning and leveling up.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start gap-4">
+                                    <div class="rs-skill-icon shrink-0">
+                                        <svg class="size-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-xl font-bold mb-2" style="font-family: 'Cinzel', serif;">
+                                            Always Available
+                                        </h3>
+                                        <p class="text-muted-foreground">
+                                            Access your learning resources anytime, right from your skill page. Your path to mastery is always at your fingertips.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Call to Action -->
         <section class="py-20 bg-gradient-to-b from-card/30 to-background">
             <div class="container mx-auto px-4">
