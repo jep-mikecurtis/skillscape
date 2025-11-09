@@ -1221,7 +1221,7 @@ const howItWorks = [
             <div class="container mx-auto px-4">
                 <div class="text-center text-muted-foreground text-sm">
                     <p class="mb-2">
-                        Made with <span class="text-destructive">❤</span> for those who level up
+                        Made with <span class="text-destructive">❤</span> by Michael Curtis
                     </p>
                     <p class="font-semibold rs-gold-text" style="font-family: 'Cinzel', serif;">
                         SKILLSCAPE - Master Your Journey
