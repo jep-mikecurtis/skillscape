@@ -35,6 +35,20 @@
 
         <title inertia>Skillscape - Master Your Journey</title>
 
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="{{ url('/') }}">
+        <meta property="og:title" content="Skillscape - Master Your Journey">
+        <meta property="og:description" content="Level up your life like an RPG. Track skills, gain XP, and master your journey with Skillscape.">
+        <meta property="og:image" content="{{ url('/og-image.svg') }}">
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image">
+        <meta property="twitter:url" content="{{ url('/') }}">
+        <meta property="twitter:title" content="Skillscape - Master Your Journey">
+        <meta property="twitter:description" content="Level up your life like an RPG. Track skills, gain XP, and master your journey with Skillscape.">
+        <meta property="twitter:image" content="{{ url('/og-image.svg') }}">
+
         <link rel="icon" href="/favicon.ico" sizes="32x32">
         <link rel="icon" href="/favicon.svg" type="image/svg+xml">
         <link rel="apple-touch-icon" href="/apple-touch-icon.png">
