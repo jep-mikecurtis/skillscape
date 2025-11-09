@@ -2,8 +2,8 @@
 import AppLogoIcon from '@/components/AppLogoIcon.vue';
 import { dashboard, login, register } from '@/routes';
 import { Head, Link } from '@inertiajs/vue3';
-import { Sword, Target, TrendingUp, Trophy, Zap, Shield, Menu, X } from 'lucide-vue-next';
-import { ref } from 'vue';
+import { Sword, Target, TrendingUp, Trophy, Zap, Shield, Menu, X, ChevronLeft, ChevronRight } from 'lucide-vue-next';
+import { onMounted, onUnmounted, ref } from 'vue';
 
 withDefaults(
     defineProps<{
@@ -15,6 +15,225 @@ withDefaults(
 );
 
 const mobileMenuOpen = ref(false);
+
+// Demo animation state
+let demoInterval: number | null = null;
+let demoSeconds = 932; // Start at 15:32
+let currentXp = 7523;
+const baseXp = 7523;
+const xpRate = 40; // XP per minute
+
+// Carousel states
+const currentDemoSlide = ref(0);
+const currentSkillSlide = ref(0);
+const demoAutoPlayInterval = ref<number | null>(null);
+const skillAutoPlayInterval = ref<number | null>(null);
+
+// Demo carousel slides
+const demoSlides = [
+    {
+        title: 'Time Tracking',
+        emoji: '💻',
+        skillName: 'Web Development',
+        level: 42,
+        description: 'Master the art of building amazing websites',
+    },
+    {
+        title: 'Flashcard Study',
+        emoji: '📚',
+        skillName: 'Spanish Language',
+        level: 18,
+        description: 'Learn vocabulary and grammar with flashcards',
+    },
+    {
+        title: 'Progress Tracking',
+        emoji: '🎸',
+        skillName: 'Guitar Playing',
+        level: 28,
+        description: 'Track your practice sessions and improvement',
+    },
+];
+
+// Skills carousel slides
+const skillSlides = [
+    {
+        category: 'Technology',
+        skills: [
+            { emoji: '💻', name: 'Web Development', level: 42, xp: 7523, maxXp: 10000, progress: 75 },
+            { emoji: '🤖', name: 'Machine Learning', level: 15, xp: 890, maxXp: 4500, progress: 20 },
+            { emoji: '📱', name: 'Mobile Apps', level: 33, xp: 5240, maxXp: 9000, progress: 58 },
+        ],
+    },
+    {
+        category: 'Creative Arts',
+        skills: [
+            { emoji: '🎸', name: 'Guitar Playing', level: 28, xp: 3240, maxXp: 8000, progress: 40 },
+            { emoji: '🎨', name: 'Digital Art', level: 22, xp: 4100, maxXp: 7000, progress: 59 },
+            { emoji: '📸', name: 'Photography', level: 19, xp: 2850, maxXp: 6000, progress: 48 },
+        ],
+    },
+    {
+        category: 'Fitness & Health',
+        skills: [
+            { emoji: '🏋️', name: 'Strength Training', level: 15, xp: 890, maxXp: 4500, progress: 20 },
+            { emoji: '🧘', name: 'Yoga', level: 24, xp: 3600, maxXp: 7500, progress: 48 },
+            { emoji: '🏃', name: 'Running', level: 31, xp: 6200, maxXp: 8500, progress: 73 },
+        ],
+    },
+];
+
+// Demo carousel navigation
+const nextDemoSlide = () => {
+    currentDemoSlide.value = (currentDemoSlide.value + 1) % demoSlides.length;
+    resetDemoAutoPlay();
+};
+
+const prevDemoSlide = () => {
+    currentDemoSlide.value = currentDemoSlide.value === 0 ? demoSlides.length - 1 : currentDemoSlide.value - 1;
+    resetDemoAutoPlay();
+};
+
+const goToDemoSlide = (index: number) => {
+    currentDemoSlide.value = index;
+    resetDemoAutoPlay();
+};
+
+const resetDemoAutoPlay = () => {
+    if (demoAutoPlayInterval.value) {
+        clearInterval(demoAutoPlayInterval.value);
+    }
+    demoAutoPlayInterval.value = window.setInterval(() => {
+        nextDemoSlide();
+    }, 5000);
+};
+
+// Skills carousel navigation
+const nextSkillSlide = () => {
+    currentSkillSlide.value = (currentSkillSlide.value + 1) % skillSlides.length;
+    resetSkillAutoPlay();
+};
+
+const prevSkillSlide = () => {
+    currentSkillSlide.value = currentSkillSlide.value === 0 ? skillSlides.length - 1 : currentSkillSlide.value - 1;
+    resetSkillAutoPlay();
+};
+
+const goToSkillSlide = (index: number) => {
+    currentSkillSlide.value = index;
+    resetSkillAutoPlay();
+};
+
+const resetSkillAutoPlay = () => {
+    if (skillAutoPlayInterval.value) {
+        clearInterval(skillAutoPlayInterval.value);
+    }
+    skillAutoPlayInterval.value = window.setInterval(() => {
+        nextSkillSlide();
+    }, 5000);
+};
+
+// Demo animation functions
+const startDemo = () => {
+    if (demoInterval) clearInterval(demoInterval);
+
+    demoSeconds = 932;
+    currentXp = baseXp;
+
+    demoInterval = window.setInterval(() => {
+        demoSeconds++;
+
+        // Calculate XP gain (40 XP per minute = ~0.67 XP per second)
+        currentXp = baseXp + Math.floor((demoSeconds - 932) * (xpRate / 60));
+
+        const timerEl = document.querySelector('.demo-timer');
+        const xpEl = document.querySelector('.demo-xp');
+        const currentXpEl = document.querySelector('.demo-current-xp');
+        const progressBar = document.querySelector('.demo-progress-bar') as HTMLElement;
+        const progressText = document.querySelector('.demo-progress-text');
+        const levelUp = document.querySelector('.demo-levelup');
+        const progressCard = document.querySelector('.demo-levelup')?.parentElement;
+
+        if (timerEl) {
+            const minutes = Math.floor(demoSeconds / 60);
+            const seconds = demoSeconds % 60;
+            timerEl.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
+
+        if (xpEl) {
+            xpEl.textContent = `+${currentXp - baseXp} XP`;
+        }
+
+        if (currentXpEl) {
+            currentXpEl.textContent = currentXp.toLocaleString();
+        }
+
+        // Update progress bar
+        const progress = Math.min(((currentXp / 10000) * 100), 100);
+        if (progressBar) {
+            progressBar.style.width = `${progress}%`;
+        }
+
+        if (progressText) {
+            progressText.textContent = `${Math.floor(progress)}%`;
+        }
+
+        // Level up animation at 100%
+        if (currentXp >= 10000 && levelUp && progressCard) {
+            progressCard.style.display = 'none';
+            levelUp.classList.remove('hidden');
+
+            // Reset after 3 seconds
+            setTimeout(() => {
+                if (demoInterval) clearInterval(demoInterval);
+                setTimeout(startDemo, 1000);
+            }, 3000);
+        }
+
+        // Auto-restart after reaching end
+        if (demoSeconds > 1500) { // After ~25 minutes of demo time
+            if (demoInterval) clearInterval(demoInterval);
+            setTimeout(startDemo, 1000);
+        }
+    }, 100); // Update every 100ms for smooth animation
+};
+
+const restartDemo = () => {
+    // Reset all elements
+    const levelUp = document.querySelector('.demo-levelup');
+    const progressCard = document.querySelector('.demo-levelup')?.parentElement;
+
+    if (levelUp) levelUp.classList.add('hidden');
+    if (progressCard) progressCard.style.display = 'block';
+
+    startDemo();
+};
+
+onMounted(() => {
+    // Start demo automatically when component mounts
+    setTimeout(startDemo, 1000);
+
+    // Add click handler for restart button
+    const restartBtn = document.querySelector('.demo-restart');
+    if (restartBtn) {
+        restartBtn.addEventListener('click', restartDemo);
+    }
+
+    // Start carousel auto-play
+    resetDemoAutoPlay();
+    resetSkillAutoPlay();
+});
+
+onUnmounted(() => {
+    if (demoInterval) {
+        clearInterval(demoInterval);
+    }
+    if (demoAutoPlayInterval.value) {
+        clearInterval(demoAutoPlayInterval.value);
+    }
+    if (skillAutoPlayInterval.value) {
+        clearInterval(skillAutoPlayInterval.value);
+    }
+});
 
 const features = [
     {
@@ -284,6 +503,407 @@ const howItWorks = [
                         <div class="rs-card p-6">
                             <div class="text-3xl font-bold rs-gold-text mb-1">100%</div>
                             <div class="text-sm text-muted-foreground">Your Potential</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Demo Section -->
+        <section class="py-20 bg-gradient-to-b from-background to-card/30">
+            <div class="container mx-auto px-4">
+                <div class="max-w-6xl mx-auto">
+                    <!-- Section Header -->
+                    <div class="text-center mb-12">
+                        <h2 class="text-4xl md:text-5xl font-bold mb-4 rs-heading">
+                            See It In Action
+                        </h2>
+                        <p class="text-xl text-muted-foreground max-w-2xl mx-auto">
+                            Watch your skills come to life with real-time tracking and progression
+                        </p>
+                    </div>
+
+                    <!-- Demo Container -->
+                    <div class="relative max-w-4xl mx-auto">
+                        <!-- Carousel Navigation Buttons -->
+                        <button
+                            @click="prevDemoSlide"
+                            class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 rs-button bg-card border-primary/30 text-primary p-3 rounded-full hover:bg-primary hover:text-primary-foreground transition-all shadow-lg hidden md:flex items-center justify-center"
+                            aria-label="Previous demo"
+                        >
+                            <ChevronLeft class="size-6" />
+                        </button>
+                        <button
+                            @click="nextDemoSlide"
+                            class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 rs-button bg-card border-primary/30 text-primary p-3 rounded-full hover:bg-primary hover:text-primary-foreground transition-all shadow-lg hidden md:flex items-center justify-center"
+                            aria-label="Next demo"
+                        >
+                            <ChevronRight class="size-6" />
+                        </button>
+
+                        <!-- Browser Chrome -->
+                        <div class="rounded-t-xl border-2 border-primary/30 bg-card/50 backdrop-blur-sm overflow-hidden shadow-2xl">
+                            <!-- Browser Header -->
+                            <div class="flex items-center gap-2 px-4 py-3 bg-card border-b border-border/50">
+                                <div class="flex gap-1.5">
+                                    <div class="w-3 h-3 rounded-full bg-red-500/70"></div>
+                                    <div class="w-3 h-3 rounded-full bg-yellow-500/70"></div>
+                                    <div class="w-3 h-3 rounded-full bg-green-500/70"></div>
+                                </div>
+                                <div class="flex-1 mx-4">
+                                    <div class="text-xs text-muted-foreground bg-background/50 rounded px-3 py-1 text-center max-w-sm mx-auto">
+                                        skillscape.app/skills/{{ demoSlides[currentDemoSlide].skillName.toLowerCase().replace(' ', '-') }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Demo Content with Transition -->
+                            <div class="relative bg-background" style="min-height: 500px;">
+                                <TransitionGroup
+                                    enter-active-class="transition-all duration-300 ease-out"
+                                    enter-from-class="opacity-0 translate-x-8"
+                                    enter-to-class="opacity-100 translate-x-0"
+                                    leave-active-class="transition-all duration-300 ease-in absolute inset-0"
+                                    leave-from-class="opacity-100 translate-x-0"
+                                    leave-to-class="opacity-0 -translate-x-8"
+                                >
+                                    <div :key="currentDemoSlide" class="p-4 sm:p-8">
+                                        <!-- Skill Header -->
+                                        <div class="flex items-start gap-4 mb-6">
+                                            <div class="text-5xl">{{ demoSlides[currentDemoSlide].emoji }}</div>
+                                            <div class="flex-1">
+                                                <div class="flex items-center gap-3 mb-2">
+                                                    <h3 class="text-2xl sm:text-3xl font-bold">{{ demoSlides[currentDemoSlide].skillName }}</h3>
+                                                    <div class="rounded-full bg-primary/10 px-3 py-1 text-sm font-bold text-primary animate-pulse">
+                                                        Level {{ demoSlides[currentDemoSlide].level }}
+                                                    </div>
+                                                </div>
+                                                <p class="text-muted-foreground text-sm">{{ demoSlides[currentDemoSlide].description }}</p>
+                                            </div>
+                                        </div>
+
+                                        <!-- Time Tracker Card -->
+                                        <div class="rounded-xl border border-sidebar-border/70 bg-card p-6 mb-6">
+                                            <h4 class="font-semibold mb-4">Time Tracker</h4>
+
+                                            <!-- Timer Display -->
+                                            <div class="rounded-lg bg-secondary/50 p-8 text-center mb-4">
+                                                <div class="font-mono text-5xl font-bold tracking-wider text-green-600 dark:text-green-400 demo-timer">
+                                                    00:15:32
+                                                </div>
+                                                <div class="text-muted-foreground mt-2 text-sm">
+                                                    Estimated: <span class="demo-xp text-green-600 dark:text-green-400">+620 XP</span>
+                                                </div>
+                                            </div>
+
+                                            <!-- Stop Button -->
+                                            <button class="w-full rounded-lg bg-red-600 px-6 py-4 text-lg font-semibold text-white demo-button">
+                                                Stop Training
+                                            </button>
+                                        </div>
+
+                                        <!-- Progress Card -->
+                                        <div class="rounded-xl border border-sidebar-border/70 bg-card p-6">
+                                            <h4 class="font-semibold mb-4">Level Progress</h4>
+
+                                            <div class="space-y-2 mb-4">
+                                                <div class="flex justify-between text-sm">
+                                                    <span class="text-muted-foreground">XP Progress</span>
+                                                    <span class="font-medium"><span class="demo-current-xp">7,523</span> / 10,000</span>
+                                                </div>
+                                                <div class="relative h-4 w-full overflow-hidden rounded-full bg-secondary">
+                                                    <div class="demo-progress-bar h-full rounded-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-1000" style="width: 75%"></div>
+                                                </div>
+                                                <div class="text-center text-sm font-medium">
+                                                    <span class="demo-progress-text">75%</span> to Level 43
+                                                </div>
+                                            </div>
+
+                                            <!-- Level Up Animation -->
+                                            <div class="demo-levelup hidden">
+                                                <div class="text-center py-8 animate-bounce">
+                                                    <div class="text-5xl mb-2">🎉</div>
+                                                    <div class="text-2xl font-bold rs-gold-text mb-1">LEVEL UP!</div>
+                                                    <div class="text-lg text-primary">Level 43 Achieved</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </TransitionGroup>
+                            </div>
+                        </div>
+
+                        <!-- Floating Labels -->
+                        <div class="absolute -right-4 top-1/4 hidden lg:block animate-float">
+                            <div class="bg-primary text-primary-foreground px-4 py-2 rounded-lg shadow-lg font-semibold text-sm">
+                                ⚡ Real-time XP Tracking
+                            </div>
+                        </div>
+                        <div class="absolute -left-4 bottom-1/3 hidden lg:block animate-float-delayed">
+                            <div class="bg-accent text-accent-foreground px-4 py-2 rounded-lg shadow-lg font-semibold text-sm">
+                                📊 Visual Progress
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Carousel Indicators -->
+                    <div class="flex justify-center gap-2 mt-6">
+                        <button
+                            v-for="(slide, index) in demoSlides"
+                            :key="index"
+                            @click="goToDemoSlide(index)"
+                            class="transition-all duration-300"
+                            :class="[
+                                currentDemoSlide === index
+                                    ? 'w-8 h-2 bg-primary rounded-full'
+                                    : 'w-2 h-2 bg-muted-foreground/30 rounded-full hover:bg-muted-foreground/50'
+                            ]"
+                            :aria-label="`Go to demo ${index + 1}: ${slide.title}`"
+                        />
+                    </div>
+
+                    <!-- Demo Controls -->
+                    <div class="text-center mt-8">
+                        <p class="text-sm text-muted-foreground mb-4">Interactive Demo • Auto-plays every 5 seconds</p>
+                        <button class="demo-restart rs-button bg-primary border-primary text-primary-foreground px-6 py-2">
+                            🔄 Restart Animation
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills & Resources Demo Section -->
+        <section class="py-20 bg-card/30">
+            <div class="container mx-auto px-4">
+                <div class="max-w-6xl mx-auto">
+                    <!-- Section Header -->
+                    <div class="text-center mb-12">
+                        <h2 class="text-4xl md:text-5xl font-bold mb-4 rs-heading">
+                            Your Skills, Your Way
+                        </h2>
+                        <p class="text-xl text-muted-foreground max-w-2xl mx-auto">
+                            Track unlimited skills with built-in resources to guide your journey
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <!-- Skills Dashboard Preview with Carousel -->
+                        <div class="relative space-y-4">
+                            <!-- Carousel Navigation -->
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-2xl font-bold rs-heading text-center lg:text-left">Track Any Skill</h3>
+                                <div class="flex gap-2">
+                                    <button
+                                        @click="prevSkillSlide"
+                                        class="rs-button bg-card border-primary/30 text-primary p-2 rounded-full hover:bg-primary hover:text-primary-foreground transition-all"
+                                        aria-label="Previous skills"
+                                    >
+                                        <ChevronLeft class="size-4" />
+                                    </button>
+                                    <button
+                                        @click="nextSkillSlide"
+                                        class="rs-button bg-card border-primary/30 text-primary p-2 rounded-full hover:bg-primary hover:text-primary-foreground transition-all"
+                                        aria-label="Next skills"
+                                    >
+                                        <ChevronRight class="size-4" />
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Skills Carousel -->
+                            <div class="relative overflow-hidden" style="min-height: 380px;">
+                                <TransitionGroup
+                                    enter-active-class="transition-all duration-300 ease-out"
+                                    enter-from-class="opacity-0 translate-x-8"
+                                    enter-to-class="opacity-100 translate-x-0"
+                                    leave-active-class="transition-all duration-300 ease-in absolute inset-0"
+                                    leave-from-class="opacity-100 translate-x-0"
+                                    leave-to-class="opacity-0 -translate-x-8"
+                                >
+                                    <div :key="currentSkillSlide" class="space-y-4">
+                                        <div class="text-center lg:text-left mb-4">
+                                            <span class="text-sm font-semibold text-primary">{{ skillSlides[currentSkillSlide].category }}</span>
+                                        </div>
+
+                                        <!-- Skill Cards -->
+                                        <div
+                                            v-for="(skill, index) in skillSlides[currentSkillSlide].skills"
+                                            :key="index"
+                                            class="rs-panel group hover:border-primary/50 transition-all cursor-pointer"
+                                        >
+                                            <div class="flex items-start gap-4">
+                                                <div class="text-4xl">{{ skill.emoji }}</div>
+                                                <div class="flex-1 min-w-0">
+                                                    <div class="flex items-center gap-3 mb-2">
+                                                        <h4 class="text-xl font-bold">{{ skill.name }}</h4>
+                                                        <div class="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-bold text-primary">
+                                                            Level {{ skill.level }}
+                                                        </div>
+                                                    </div>
+                                                    <!-- Progress Bar -->
+                                                    <div class="space-y-1">
+                                                        <div class="flex justify-between text-xs">
+                                                            <span class="text-muted-foreground">{{ skill.xp.toLocaleString() }} / {{ skill.maxXp.toLocaleString() }} XP</span>
+                                                            <span class="font-medium">{{ skill.progress }}%</span>
+                                                        </div>
+                                                        <div class="relative h-2 w-full overflow-hidden rounded-full bg-secondary">
+                                                            <div class="h-full rounded-full bg-gradient-to-r from-blue-500 to-purple-500" :style="`width: ${skill.progress}%`"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </TransitionGroup>
+                            </div>
+
+                            <!-- Carousel Indicators -->
+                            <div class="flex justify-center gap-2 pt-4">
+                                <button
+                                    v-for="(slide, index) in skillSlides"
+                                    :key="index"
+                                    @click="goToSkillSlide(index)"
+                                    class="transition-all duration-300"
+                                    :class="[
+                                        currentSkillSlide === index
+                                            ? 'w-8 h-2 bg-primary rounded-full'
+                                            : 'w-2 h-2 bg-muted-foreground/30 rounded-full hover:bg-muted-foreground/50'
+                                    ]"
+                                    :aria-label="`Go to ${slide.category} skills`"
+                                />
+                            </div>
+
+                            <div class="text-center lg:text-left pt-4">
+                                <p class="text-sm text-muted-foreground italic">
+                                    + Track unlimited skills in any category
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Learning Resources Preview -->
+                        <div class="space-y-4">
+                            <h3 class="text-2xl font-bold mb-4 rs-heading text-center lg:text-left">Curated Resources</h3>
+
+                            <div class="rs-panel">
+                                <h4 class="font-semibold mb-4 flex items-center gap-2">
+                                    <span class="text-2xl">💻</span>
+                                    Web Development Resources
+                                </h4>
+
+                                <div class="space-y-3">
+                                    <!-- Resource 1 -->
+                                    <a href="#" class="flex items-center gap-3 rounded-lg border border-sidebar-border/50 p-3 transition-colors hover:bg-accent hover:border-primary group">
+                                        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-red-500/10 text-red-600">
+                                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                                            </svg>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <div class="font-medium text-sm group-hover:text-primary transition-colors">
+                                                JavaScript Complete Guide
+                                            </div>
+                                            <div class="text-muted-foreground text-xs">YouTube Tutorial</div>
+                                        </div>
+                                        <svg class="h-4 w-4 text-muted-foreground shrink-0 group-hover:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                                        </svg>
+                                    </a>
+
+                                    <!-- Resource 2 -->
+                                    <a href="#" class="flex items-center gap-3 rounded-lg border border-sidebar-border/50 p-3 transition-colors hover:bg-accent hover:border-primary group">
+                                        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-500/10 text-blue-600">
+                                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+                                            </svg>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <div class="font-medium text-sm group-hover:text-primary transition-colors">
+                                                MDN Web Docs
+                                            </div>
+                                            <div class="text-muted-foreground text-xs">Documentation</div>
+                                        </div>
+                                        <svg class="h-4 w-4 text-muted-foreground shrink-0 group-hover:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                                        </svg>
+                                    </a>
+
+                                    <!-- Resource 3 -->
+                                    <a href="#" class="flex items-center gap-3 rounded-lg border border-sidebar-border/50 p-3 transition-colors hover:bg-accent hover:border-primary group">
+                                        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-green-500/10 text-green-600">
+                                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                                            </svg>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <div class="font-medium text-sm group-hover:text-primary transition-colors">
+                                                Coding Challenges
+                                            </div>
+                                            <div class="text-muted-foreground text-xs">Interactive Practice</div>
+                                        </div>
+                                        <svg class="h-4 w-4 text-muted-foreground shrink-0 group-hover:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                                        </svg>
+                                    </a>
+
+                                    <!-- Resource 4 -->
+                                    <a href="#" class="flex items-center gap-3 rounded-lg border border-sidebar-border/50 p-3 transition-colors hover:bg-accent hover:border-primary group">
+                                        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-purple-500/10 text-purple-600">
+                                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                                            </svg>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <div class="font-medium text-sm group-hover:text-primary transition-colors">
+                                                Frontend Handbook
+                                            </div>
+                                            <div class="text-muted-foreground text-xs">Free eBook</div>
+                                        </div>
+                                        <svg class="h-4 w-4 text-muted-foreground shrink-0 group-hover:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="text-center lg:text-left pt-4">
+                                <p class="text-sm text-muted-foreground italic">
+                                    Every skill comes with handpicked learning materials
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feature Highlights -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+                        <div class="text-center">
+                            <div class="rs-skill-icon mx-auto mb-3">
+                                <Target class="size-6 text-primary" />
+                            </div>
+                            <h4 class="font-bold mb-2">Unlimited Skills</h4>
+                            <p class="text-sm text-muted-foreground">
+                                Track as many skills as you want, from any category
+                            </p>
+                        </div>
+                        <div class="text-center">
+                            <div class="rs-skill-icon mx-auto mb-3">
+                                <svg class="size-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                                </svg>
+                            </div>
+                            <h4 class="font-bold mb-2">Quality Resources</h4>
+                            <p class="text-sm text-muted-foreground">
+                                Curated tutorials, docs, and tools for each skill
+                            </p>
+                        </div>
+                        <div class="text-center">
+                            <div class="rs-skill-icon mx-auto mb-3">
+                                <TrendingUp class="size-6 text-primary" />
+                            </div>
+                            <h4 class="font-bold mb-2">Track Progress</h4>
+                            <p class="text-sm text-muted-foreground">
+                                See your improvement with visual XP and level bars
+                            </p>
                         </div>
                     </div>
                 </div>
