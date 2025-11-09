@@ -10,6 +10,7 @@ import {
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { AlertCircle } from 'lucide-vue-next';
+import axios from 'axios';
 import { ref, computed } from 'vue';
 
 interface Skill {
@@ -70,34 +71,19 @@ const handleSubmit = async () => {
     try {
         const completedAt = `${completedDate.value} ${completedTime.value}:00`;
 
-        const response = await fetch('/api/time-entries/log-manual', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '',
-                'Accept': 'application/json',
-            },
-            credentials: 'same-origin',
-            body: JSON.stringify({
-                skill_id: props.skill.id,
-                duration_minutes: totalMinutes.value,
-                completed_at: completedAt,
-                notes: notes.value || null,
-            }),
+        const { data } = await axios.post('/api/time-entries/log-manual', {
+            skill_id: props.skill.id,
+            duration_minutes: totalMinutes.value,
+            completed_at: completedAt,
+            notes: notes.value || null,
         });
 
-        const data = await response.json();
-
-        if (response.ok) {
-            emit('success', data);
-            isOpen.value = false;
-            resetForm();
-        } else {
-            error.value = data.error || data.message || 'Failed to log time entry';
-        }
-    } catch (err) {
+        emit('success', data);
+        isOpen.value = false;
+        resetForm();
+    } catch (err: any) {
         console.error('Error logging time:', err);
-        error.value = 'Failed to log time entry. Please try again.';
+        error.value = err.response?.data?.error || err.response?.data?.message || 'Failed to log time entry. Please try again.';
     } finally {
         isSubmitting.value = false;
     }

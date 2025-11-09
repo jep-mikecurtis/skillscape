@@ -5,6 +5,7 @@ import ManualTimeEntryModal from '@/components/ManualTimeEntryModal.vue';
 import { dashboard } from '@/routes';
 import type { BreadcrumbItem } from '@/types';
 import { Head, router } from '@inertiajs/vue3';
+import axios from 'axios';
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 
 interface Resource {
@@ -103,33 +104,19 @@ const formatDate = (date: string) => {
 const startTracking = async () => {
     isStarting.value = true;
     try {
-        const response = await fetch('/api/time-entries/start', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '',
-                'Accept': 'application/json',
-            },
-            credentials: 'same-origin',
-            body: JSON.stringify({
-                skill_id: props.skill.id,
-                notes: sessionNotes.value || null,
-            }),
+        const { data } = await axios.post('/api/time-entries/start', {
+            skill_id: props.skill.id,
+            notes: sessionNotes.value || null,
         });
 
-        if (response.ok) {
-            isTracking.value = true;
-            elapsedTime.value = 0;
-            startTimer();
-            sessionNotes.value = '';
-        } else {
-            const data = await response.json().catch(() => ({ error: 'Unknown error' }));
-            console.error('Start tracking failed:', response.status, data);
-            alert(data.error || `Failed to start tracking (Status: ${response.status})`);
-        }
-    } catch (error) {
+        isTracking.value = true;
+        elapsedTime.value = 0;
+        startTimer();
+        sessionNotes.value = '';
+    } catch (error: any) {
         console.error('Error starting tracking:', error);
-        alert('Failed to start tracking: ' + (error.message || 'Network error'));
+        const errorMessage = error.response?.data?.error || error.response?.data?.message || 'Failed to start tracking';
+        alert(errorMessage);
     } finally {
         isStarting.value = false;
     }
@@ -138,36 +125,23 @@ const startTracking = async () => {
 const stopTracking = async () => {
     isStopping.value = true;
     try {
-        const response = await fetch('/api/time-entries/stop', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '',
-                'Accept': 'application/json',
-            },
-            credentials: 'same-origin',
-        });
+        const { data } = await axios.post('/api/time-entries/stop');
 
-        if (response.ok) {
-            const data = await response.json();
-            isTracking.value = false;
-            stopTimer();
+        isTracking.value = false;
+        stopTimer();
 
-            // Check if user leveled up
-            if (data.level_up) {
-                levelUpData.value = data.level_up;
-                showLevelUp.value = true;
-            }
-
-            // Reload the page to show updated stats
-            router.reload({ only: ['userSkill', 'recentSessions', 'activeSession'] });
-        } else {
-            const data = await response.json();
-            alert(data.error || 'Failed to stop tracking');
+        // Check if user leveled up
+        if (data.level_up) {
+            levelUpData.value = data.level_up;
+            showLevelUp.value = true;
         }
-    } catch (error) {
+
+        // Reload the page to show updated stats
+        router.reload({ only: ['userSkill', 'recentSessions', 'activeSession'] });
+    } catch (error: any) {
         console.error('Error stopping tracking:', error);
-        alert('Failed to stop tracking');
+        const errorMessage = error.response?.data?.error || error.response?.data?.message || 'Failed to stop tracking';
+        alert(errorMessage);
     } finally {
         isStopping.value = false;
     }
