@@ -358,10 +358,24 @@ class SkillSeeder extends Seeder
                     ['type' => 'app', 'title' => 'SkySafari Star Chart', 'url' => 'https://skysafariastronomy.com'],
                 ],
             ],
+            // Speach
+            [
+                'name' => 'Public Speaking',
+                'description' => 'Improving public speaking and presentation skills',
+                'icon' => '🗣️',
+                'category' => 'Professional',
+                'xp_rate' => 11,
+                'resources' => [
+                    ['type' => 'youtube', 'title' => 'TED Talks', 'url' => 'https://www.youtube.com/@TED'],
+                    ['type' => 'website', 'title' => 'Toastmasters International', 'url' => 'https://www.toastmasters.org'],
+                    ['type' => 'youtube', 'title' => 'Charisma on Command', 'url' => 'https://www.youtube.com/@charismaoncommand'],
+                ],
+            ],
         ];
 
         foreach ($skills as $skill) {
-            Skill::create($skill);
+            // Create skill if it doesn't already exist
+            Skill::firstOrCreate(['name' => $skill['name']], $skill);
         }
     }
 }
