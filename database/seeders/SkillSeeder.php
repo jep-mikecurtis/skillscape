@@ -371,6 +371,19 @@ class SkillSeeder extends Seeder
                     ['type' => 'youtube', 'title' => 'Charisma on Command', 'url' => 'https://www.youtube.com/@charismaoncommand'],
                 ],
             ],
+            // Golf 
+            [
+                'name' => 'Golf',
+                'description' => 'Learning and practicing golf skills',
+                'icon' => '⛳',
+                'category' => 'Physical',
+                'xp_rate' => 13,
+                'resources' => [
+                    ['type' => 'youtube', 'title' => 'Me and My Golf', 'url' => 'https://www.youtube.com/@meandmygolf'],
+                    ['type' => 'youtube', 'title' => 'Rick Shiels Golf', 'url' => 'https://www.youtube.com/@RickShielsGolf'],
+                    ['type' => 'website', 'title' => 'Golf Digest Tips', 'url' => 'https://www.golfdigest.com'],
+                ],
+            ],
         ];
 
         foreach ($skills as $skill) {
