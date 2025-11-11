@@ -30,9 +30,17 @@ const emit = defineEmits<{
     success: [data: any];
 }>();
 
+const getTodayDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+};
+
 const durationHours = ref<number>(0);
 const durationMinutes = ref<number>(30);
-const completedDate = ref<string>(new Date().toISOString().split('T')[0]);
+const completedDate = ref<string>(getTodayDate());
 const completedTime = ref<string>(new Date().toTimeString().slice(0, 5));
 const notes = ref<string>('');
 const error = ref<string>('');
@@ -53,7 +61,7 @@ const isValidDuration = computed(() => {
 const resetForm = () => {
     durationHours.value = 0;
     durationMinutes.value = 30;
-    completedDate.value = new Date().toISOString().split('T')[0];
+    completedDate.value = getTodayDate();
     completedTime.value = new Date().toTimeString().slice(0, 5);
     notes.value = '';
     error.value = '';
@@ -139,7 +147,7 @@ const handleClose = () => {
                             type="number"
                             min="0"
                             max="59"
-                            step="5"
+                            step="1"
                             class="mt-1.5"
                         />
                     </div>
@@ -163,7 +171,7 @@ const handleClose = () => {
                             id="date"
                             v-model="completedDate"
                             type="date"
-                            :max="new Date().toISOString().split('T')[0]"
+                            :max="getTodayDate()"
                             :min="new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]"
                             class="mt-1.5"
                         />
