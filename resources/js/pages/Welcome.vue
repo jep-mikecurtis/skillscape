@@ -104,7 +104,7 @@ const resetDemoAutoPlay = () => {
     }
     demoAutoPlayInterval.value = window.setInterval(() => {
         nextDemoSlide();
-    }, 5000);
+    }, 8000); // Slowed from 5s to 8s
 };
 
 // Skills carousel navigation
@@ -129,7 +129,7 @@ const resetSkillAutoPlay = () => {
     }
     skillAutoPlayInterval.value = window.setInterval(() => {
         nextSkillSlide();
-    }, 5000);
+    }, 8000); // Slowed from 5s to 8s
 };
 
 // Demo animation functions
@@ -194,7 +194,7 @@ const startDemo = () => {
             if (demoInterval) clearInterval(demoInterval);
             setTimeout(startDemo, 1000);
         }
-    }, 100); // Update every 100ms for smooth animation
+    }, 200); // Update every 200ms (slowed from 100ms for slower animation)
 };
 
 const restartDemo = () => {
@@ -660,14 +660,6 @@ const howItWorks = [
                             ]"
                             :aria-label="`Go to demo ${index + 1}: ${slide.title}`"
                         />
-                    </div>
-
-                    <!-- Demo Controls -->
-                    <div class="text-center mt-8">
-                        <p class="text-sm text-muted-foreground mb-4">Interactive Demo • Auto-plays every 5 seconds</p>
-                        <button class="demo-restart rs-button bg-primary border-primary text-primary-foreground px-6 py-2">
-                            🔄 Restart Animation
-                        </button>
                     </div>
                 </div>
             </div>
