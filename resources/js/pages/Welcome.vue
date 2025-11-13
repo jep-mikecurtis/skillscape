@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import AddToHomeScreen from '@/components/AddToHomeScreen.vue';
 import AppLogoIcon from '@/components/AppLogoIcon.vue';
 import { dashboard, login, register } from '@/routes';
 import { Head, Link } from '@inertiajs/vue3';
@@ -1229,5 +1230,8 @@ const howItWorks = [
                 </div>
             </div>
         </footer>
+
+        <!-- Add to Home Screen Prompt -->
+        <AddToHomeScreen />
     </div>
 </template>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import ActiveSessionTracker from '@/components/ActiveSessionTracker.vue';
+import AddToHomeScreen from '@/components/AddToHomeScreen.vue';
 import AppContent from '@/components/AppContent.vue';
 import AppShell from '@/components/AppShell.vue';
 import AppSidebar from '@/components/AppSidebar.vue';
@@ -23,5 +24,6 @@ withDefaults(defineProps<Props>(), {
             <slot />
         </AppContent>
         <ActiveSessionTracker />
+        <AddToHomeScreen />
     </AppShell>
 </template>
