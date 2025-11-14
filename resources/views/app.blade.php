@@ -40,14 +40,17 @@
         <meta property="og:url" content="{{ url('/') }}">
         <meta property="og:title" content="Skillscape - Master Your Journey">
         <meta property="og:description" content="Level up your life like an RPG. Track skills, gain XP, and master your journey with Skillscape.">
-        <meta property="og:image" content="{{ url('/og-image.svg') }}">
+        <meta property="og:image" content="{{ url('/og-image.svg') }}?v={{ config('app.version', time()) }}">
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630">
+        <meta property="og:image:type" content="image/svg+xml">
 
         <!-- Twitter -->
         <meta property="twitter:card" content="summary_large_image">
         <meta property="twitter:url" content="{{ url('/') }}">
         <meta property="twitter:title" content="Skillscape - Master Your Journey">
         <meta property="twitter:description" content="Level up your life like an RPG. Track skills, gain XP, and master your journey with Skillscape.">
-        <meta property="twitter:image" content="{{ url('/og-image.svg') }}">
+        <meta property="twitter:image" content="{{ url('/og-image.svg') }}?v={{ config('app.version', time()) }}">
 
         <link rel="icon" href="/favicon.ico" sizes="32x32">
         <link rel="icon" href="/favicon.svg" type="image/svg+xml">
